@@ -1,0 +1,9 @@
+Prague;Kyiv;1;Boing-5;50
+Lisbon;Kyiv;2;Boing-1;10
+Kyiv;Rome;3;Boing-1;10
+Paris;Vienna;4;Boing-5;50
+Oslo;Kyiv;5;Boing-4;45
+London;Kyiv;7;A319;150
+Lisbon;Sofia;8;A319;150
+Bern;Riga;9;Boing-1;10
+Dublin;Kyiv;10;A319;150
