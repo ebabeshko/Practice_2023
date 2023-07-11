@@ -64,7 +64,7 @@ int main() {
             savePaymentsToFile(payments, paymentCount, "payments.dat");
             break;
         case 8:
-            clearFile("payments.txt");
+            clearFile("payments.dat");
             break;
         default:
             printf("Invalid choice. Please try again.\n");
