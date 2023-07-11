@@ -176,4 +176,3 @@ int checkActivationKey(const char* filename, const char* userInput) {
         return 0;  // Ключ активації не співпадає
     }
 }
-}
