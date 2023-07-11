@@ -11,7 +11,7 @@ int main() {
     userActivationKey[strcspn(userActivationKey, "\n")] = '\0';
 
     // Перевірка ключа активації
-    if (!checkActivationKey("activation_key.cfg", userActivationKey)) {
+    if (!checkActivationKey("source.cfg", userActivationKey)) {
         printf("Invalid activation key. Exiting the program...\n");
         return 0;
     }
