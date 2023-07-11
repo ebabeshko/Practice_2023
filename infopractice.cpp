@@ -356,10 +356,10 @@ col:
         }
 
     }break;
-    default:
+    default: {
         printf("Неправильний номер стовпця.\n");
         goto col;
-        break;
+        break; }
     }
 
     free(new_info);
@@ -520,7 +520,7 @@ PUBLIC bool is_valid_key() {
     return true;
 }
 PUBLIC void file_change_name(const char* CurfileName) {
-    char NewNameFile[MAX_FILENAME_LENGTH+1]; // Замінити на потрібне початкове ім'я файлу
+    char NewNameFile[MAX_FILENAME_LENGTH + 1]; // Замінити на потрібне початкове ім'я файлу
 
     struct info* new_info = (struct info*)malloc(sizeof(struct info));
     if (new_info == NULL) {
@@ -530,8 +530,9 @@ PUBLIC void file_change_name(const char* CurfileName) {
 
     while (getchar() != '\n');
     printf("Введіть нову назву файла: ");
-    fgets(NewNameFile, MAX_FILENAME_LENGTH+1, stdin);
-   
+    fgets(NewNameFile, MAX_FILENAME_LENGTH + 1, stdin);
+    NewNameFile[strcspn(NewNameFile, "\n")] = '\0';
+
 
     FILE* f_my = fopen(CurfileName, "r");  // Відкриття файлу для читання записів
     if (f_my == NULL) {
@@ -540,13 +541,14 @@ PUBLIC void file_change_name(const char* CurfileName) {
         return;
     }
 
-    FILE* f_temp = fopen(NewNameFile, "w+");
+    FILE* f_temp = fopen(NewNameFile, "w");  // Відкриття тимчасового файлу для запису
     if (f_temp == NULL) {
         printf("Помилка відкриття тимчасового файлу.\n");
         free(new_info);
         fclose(f_my);
         return;
     }
+
 
     while (fscanf(f_my, "%d %s %s %f %s", &new_info->number, new_info->name,
         new_info->group_product, &new_info->price, new_info->provider) != EOF) {
@@ -556,6 +558,7 @@ PUBLIC void file_change_name(const char* CurfileName) {
     free(new_info);
     fclose(f_my);    // Закриття файлів
     fclose(f_temp);
+    
     remove(CurfileName);  // Видалення початкового файлу
 }
 PUBLIC void exportCSV(const char* CurfileName) {
