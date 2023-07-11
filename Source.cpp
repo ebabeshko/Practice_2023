@@ -61,7 +61,7 @@ int main() {
             specialFunction2(payments, paymentCount);
             break;
         case 7:
-            savePaymentsToFile(payments, paymentCount, "payments.txt");
+            savePaymentsToFile(payments, paymentCount, "payments.dat");
             break;
         case 8:
             clearFile("payments.txt");
