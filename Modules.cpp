@@ -154,6 +154,7 @@ void savePaymentsToFile(const Payment* payments, int count, const char* filename
     fclose(file);
     printf("Payments saved to file '%s' successfully.\n", filename);
 }
+
 //Перевірка ключа
 int checkActivationKey(const char* filename, const char* userInput) {
     FILE* file = fopen(filename, "r");
@@ -174,4 +175,5 @@ int checkActivationKey(const char* filename, const char* userInput) {
     else {
         return 0;  // Ключ активації не співпадає
     }
+}
 }
