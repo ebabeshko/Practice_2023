@@ -1,0 +1,24 @@
+﻿  ConsoleApplication1.cpp
+C:\Users\rostn\Desktop\PRAKTIKA\2\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(70,21): warning C4477: "scanf_s": в строке форматирования "%[^\n]" требуется аргумент типа "unsigned int", но вариативный аргумент "2" имеет тип "size_t"
+C:\Users\rostn\Desktop\PRAKTIKA\2\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(70,21): message : этот аргумент используется в качестве размера буфера
+C:\Users\rostn\Desktop\PRAKTIKA\2\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(73,21): warning C4477: "scanf_s": в строке форматирования "%[^\n]" требуется аргумент типа "unsigned int", но вариативный аргумент "2" имеет тип "size_t"
+C:\Users\rostn\Desktop\PRAKTIKA\2\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(73,21): message : этот аргумент используется в качестве размера буфера
+C:\Users\rostn\Desktop\PRAKTIKA\2\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(76,21): warning C4477: "scanf_s": в строке форматирования "%[^\n]" требуется аргумент типа "unsigned int", но вариативный аргумент "2" имеет тип "size_t"
+C:\Users\rostn\Desktop\PRAKTIKA\2\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(76,21): message : этот аргумент используется в качестве размера буфера
+C:\Users\rostn\Desktop\PRAKTIKA\2\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(79,21): warning C4477: "scanf_s": в строке форматирования "%[^\n]" требуется аргумент типа "unsigned int", но вариативный аргумент "2" имеет тип "size_t"
+C:\Users\rostn\Desktop\PRAKTIKA\2\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(79,21): message : этот аргумент используется в качестве размера буфера
+C:\Users\rostn\Desktop\PRAKTIKA\2\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(97,21): warning C4477: "scanf_s": в строке форматирования "%[^\n]" требуется аргумент типа "unsigned int", но вариативный аргумент "2" имеет тип "size_t"
+C:\Users\rostn\Desktop\PRAKTIKA\2\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(97,21): message : этот аргумент используется в качестве размера буфера
+C:\Users\rostn\Desktop\PRAKTIKA\2\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(100,21): warning C4477: "scanf_s": в строке форматирования "%[^\n]" требуется аргумент типа "unsigned int", но вариативный аргумент "2" имеет тип "size_t"
+C:\Users\rostn\Desktop\PRAKTIKA\2\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(100,21): message : этот аргумент используется в качестве размера буфера
+C:\Users\rostn\Desktop\PRAKTIKA\2\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(103,21): warning C4477: "scanf_s": в строке форматирования "%[^\n]" требуется аргумент типа "unsigned int", но вариативный аргумент "2" имеет тип "size_t"
+C:\Users\rostn\Desktop\PRAKTIKA\2\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(103,21): message : этот аргумент используется в качестве размера буфера
+C:\Users\rostn\Desktop\PRAKTIKA\2\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(106,21): warning C4477: "scanf_s": в строке форматирования "%[^\n]" требуется аргумент типа "unsigned int", но вариативный аргумент "2" имеет тип "size_t"
+C:\Users\rostn\Desktop\PRAKTIKA\2\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(106,21): message : этот аргумент используется в качестве размера буфера
+C:\Users\rostn\Desktop\PRAKTIKA\2\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(121,25): warning C4477: "scanf_s": в строке форматирования "%[^\n]" требуется аргумент типа "unsigned int", но вариативный аргумент "2" имеет тип "size_t"
+C:\Users\rostn\Desktop\PRAKTIKA\2\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(121,25): message : этот аргумент используется в качестве размера буфера
+C:\Users\rostn\Desktop\PRAKTIKA\2\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(312,34): warning C4477: "sscanf_s": в строке форматирования "%s" требуется аргумент типа "unsigned int", но вариативный аргумент "2" имеет тип "size_t"
+C:\Users\rostn\Desktop\PRAKTIKA\2\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(312,34): message : этот аргумент используется в качестве размера буфера
+C:\Users\rostn\Desktop\PRAKTIKA\2\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(315,34): warning C4477: "sscanf_s": в строке форматирования "%s" требуется аргумент типа "unsigned int", но вариативный аргумент "2" имеет тип "size_t"
+C:\Users\rostn\Desktop\PRAKTIKA\2\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(315,34): message : этот аргумент используется в качестве размера буфера
+  ConsoleApplication1.vcxproj -> C:\Users\rostn\Desktop\PRAKTIKA\2\ConsoleApplication1\x64\Debug\ConsoleApplication1.exe
