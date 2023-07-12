@@ -10,22 +10,22 @@ void addContact(Contact** contacts, int* numContacts) {
     Contact newContact;
     getchar();
     newContact.surname = (char*)malloc(50 * sizeof(char));
-    printf("Введiть прiзвище: ");
+    printf("Р’РІРµРґiС‚СЊ РїСЂiР·РІРёС‰Рµ: ");
     fgets(newContact.surname, 50, stdin);
     newContact.surname[strcspn(newContact.surname, "\n")] = '\0';
 
     newContact.name = (char*)malloc(50 * sizeof(char));
-    printf("Введiть iм'я: ");
+    printf("Р’РІРµРґiС‚СЊ iРј'СЏ: ");
     fgets(newContact.name, 50, stdin);
     newContact.name[strcspn(newContact.name, "\n")] = '\0';
 
     newContact.phone = (char*)malloc(20 * sizeof(char));
-    printf("Введiть номер телефона: ");
+    printf("Р’РІРµРґiС‚СЊ РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°: ");
     fgets(newContact.phone, 20, stdin);
     newContact.phone[strcspn(newContact.phone, "\n")] = '\0';
 
     newContact.messenger = (char*)malloc(50 * sizeof(char));
-    printf("Введiть логiн у месенджерi: ");
+    printf("Р’РІРµРґiС‚СЊ Р»РѕРіiРЅ Сѓ РјРµСЃРµРЅРґР¶РµСЂi: ");
     fgets(newContact.messenger, 50, stdin);
     newContact.messenger[strcspn(newContact.messenger, "\n")] = '\0';
 
@@ -34,10 +34,10 @@ void addContact(Contact** contacts, int* numContacts) {
     *contacts = (Contact*)realloc(*contacts, (*numContacts) * sizeof(Contact));
     (*contacts)[(*numContacts) - 1] = newContact;
 
-    printf("Контакт успiшно доданий!\n");
+    printf("РљРѕРЅС‚Р°РєС‚ СѓСЃРїiС€РЅРѕ РґРѕРґР°РЅРёР№!\n");
 }
 
-// Функція для видалення контакту за індексом
+// Р¤СѓРЅРєС†С–СЏ РґР»СЏ РІРёРґР°Р»РµРЅРЅСЏ РєРѕРЅС‚Р°РєС‚Сѓ Р·Р° С–РЅРґРµРєСЃРѕРј
 void deleteContact(Contact** contacts, int* numContacts, int index) {
     if (index >= 0 && index < *numContacts) {
         free((*contacts)[index].surname);
@@ -52,79 +52,80 @@ void deleteContact(Contact** contacts, int* numContacts, int index) {
         (*numContacts)--;
         *contacts = (Contact*)realloc(*contacts, (*numContacts) * sizeof(Contact));
 
-        printf("Контакт успiшно видалений!\n");
+        printf("РљРѕРЅС‚Р°РєС‚ СѓСЃРїiС€РЅРѕ РІРёРґР°Р»РµРЅРёР№!\n");
     }
     else {
-        printf("Неприпустимий iндекс контакту!\n");
+        printf("РќРµРїСЂРёРїСѓСЃС‚РёРјРёР№ iРЅРґРµРєСЃ РєРѕРЅС‚Р°РєС‚Сѓ!\n");
     }
 }
 
-// Функція для виведення всіх контактів
+// Р¤СѓРЅРєС†С–СЏ РґР»СЏ РІРёРІРµРґРµРЅРЅСЏ РІСЃС–С… РєРѕРЅС‚Р°РєС‚С–РІ
 void displayContacts(Contact* contacts, int numContacts) {
+    
     if (numContacts > 0) {
-        printf("Список контактiв:\n");
+        printf("РЎРїРёСЃРѕРє РєРѕРЅС‚Р°РєС‚iРІ:\n");
         for (int i = 0; i < numContacts; i++) {
-            printf("Контакт %d:\n", i);
-            printf("Прiзвище: %s\n", contacts[i].surname);
-            printf("Iм'я: %s\n", contacts[i].name);
-            printf("Номер телефона: %s\n", contacts[i].phone);
-            printf("Логiн у месенджерi: %s\n", contacts[i].messenger);
+            printf("РљРѕРЅС‚Р°РєС‚ %d:\n", i);
+            printf("РџСЂiР·РІРёС‰Рµ: %s\n", contacts[i].surname);
+            printf("IРј'СЏ: %s\n", contacts[i].name);
+            printf("РќРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°: %s\n", contacts[i].phone);
+            printf("Р›РѕРіiРЅ Сѓ РјРµСЃРµРЅРґР¶РµСЂi: %s\n", contacts[i].messenger);
             printf("-----------------------\n");
         }
     }
     else {
-        printf("Список контактiв порожнiй!\n");
+        printf("РЎРїРёСЃРѕРє РєРѕРЅС‚Р°РєС‚iРІ РїРѕСЂРѕР¶РЅiР№!\n");
     }
 }
 
 void editContact(Contact* contacts, int numContacts, int index) {
     if (index >= 0 && index < numContacts) {
         int choice;
-        printf("Виберiть поле для змiни:\n");
-        printf("1. Прiзвище\n");
-        printf("2. Iм'я\n");
-        printf("3. Номер телефона\n");
-        printf("4. Логiн у месенджерi\n");
-        printf("Ваш вибiр: ");
+        printf("Р’РёР±РµСЂiС‚СЊ РїРѕР»Рµ РґР»СЏ Р·РјiРЅРё:\n");
+        printf("1. РџСЂiР·РІРёС‰Рµ\n");
+        printf("2. IРј'СЏ\n");
+        printf("3. РќРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°\n");
+        printf("4. Р›РѕРіiРЅ Сѓ РјРµСЃРµРЅРґР¶РµСЂi\n");
+        printf("Р’Р°С€ РІРёР±iСЂ: ");
         scanf_s("%d", &choice);
-        getchar(); // Очистити буфер введення
+        getchar(); // РћС‡РёСЃС‚РёС‚Рё Р±СѓС„РµСЂ РІРІРµРґРµРЅРЅСЏ
         char buffer[100];
         switch (choice) {
         case 1:
-            printf("Введiть нове прiзвище: ");
+            printf("Р’РІРµРґiС‚СЊ РЅРѕРІРµ РїСЂiР·РІРёС‰Рµ: ");
             fgets(buffer, sizeof(buffer), stdin);
             buffer[strcspn(buffer, "\n")] = '\0';
             free(contacts[index].surname);
             contacts[index].surname = _strdup(buffer);
             break;
         case 2:
-            printf("Введiть нове iм'я: ");
+            printf("Р’РІРµРґiС‚СЊ РЅРѕРІРµ iРј'СЏ: ");
             fgets(buffer, sizeof(buffer), stdin);
             buffer[strcspn(buffer, "\n")] = '\0';
             free(contacts[index].name);
             contacts[index].name = _strdup(buffer);
             break;
         case 3:
-            printf("Введiть новий номер телефона: ");
+            printf("Р’РІРµРґiС‚СЊ РЅРѕРІРёР№ РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°: ");
             fgets(buffer, sizeof(buffer), stdin);
             buffer[strcspn(buffer, "\n")] = '\0';
             free(contacts[index].phone);
             contacts[index].phone = _strdup(buffer);
             break;
         case 4:
-            printf("Введiть новий логiн у месенджерi: ");
+            printf("Р’РІРµРґiС‚СЊ РЅРѕРІРёР№ Р»РѕРіiРЅ Сѓ РјРµСЃРµРЅРґР¶РµСЂi: ");
             fgets(buffer, sizeof(buffer), stdin);
             buffer[strcspn(buffer, "\n")] = '\0';
             free(contacts[index].messenger);
             contacts[index].messenger = _strdup(buffer);
             break;
         default:
-            printf("Неприпустимий вибiр!\n");
+            printf("РќРµРїСЂРёРїСѓСЃС‚РёРјРёР№ РІРёР±iСЂ!\n");
         }
-        printf("Контакт успішно змiнений!\n");
+        printf("РљРѕРЅС‚Р°РєС‚ СѓСЃРїС–С€РЅРѕ Р·РјiРЅРµРЅРёР№!\n");
     }
     else {
-        printf("Неприпустимий iндекс контакту!\n");
+        printf("РќРµРїСЂРёРїСѓСЃС‚РёРјРёР№ iРЅРґРµРєСЃ РєРѕРЅС‚Р°РєС‚Сѓ!\n");
     }
 }
 
@@ -132,53 +133,53 @@ void editContact(Contact* contacts, int numContacts, int index) {
 void displayContactsByMessenger(Contact* contacts, int numContacts) {
     int found = 0;
 
-    printf("Контакти з месенджером:\n");
+    printf("РљРѕРЅС‚Р°РєС‚Рё Р· РјРµСЃРµРЅРґР¶РµСЂРѕРј:\n");
     for (int i = 0; i < numContacts; i++) {
-        if (strcmp(contacts[i].messenger, "") != 0) {
-            printf("Контакт %d:\n", i + 1);
-            printf("Прiзвище: %s\n", contacts[i].surname);
-            printf("Iм'я: %s\n", contacts[i].name);
-            printf("Номер телефона: %s\n", contacts[i].phone);
-            printf("Логiн у месенджерi: %s\n", contacts[i].messenger);
+        if (strlen(contacts[i].messenger) > 1) {
+            printf("РљРѕРЅС‚Р°РєС‚ %d:\n", i);
+            printf("РџСЂiР·РІРёС‰Рµ: %s\n", contacts[i].surname);
+            printf("IРј'СЏ: %s\n", contacts[i].name);
+            printf("РќРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°: %s\n", contacts[i].phone);
+            printf("Р›РѕРіiРЅ Сѓ РјРµСЃРµРЅРґР¶РµСЂi: %s\n", contacts[i].messenger);
             printf("-----------------------\n");
             found = 1;
         }
     }
 
     if (!found) {
-        printf("Немає контактiв з месенджером.\n");
+        printf("РќРµРјР°С” РєРѕРЅС‚Р°РєС‚iРІ Р· РјРµСЃРµРЅРґР¶РµСЂРѕРј.\n");
     }
 }
 void displayContactsBySubstring(Contact* contacts, int numContacts, const char* substring) {
     int found = 0;
 
-    printf("Контакти, що починаються з пiдрядка \"%s\":\n", substring);
+    printf("РљРѕРЅС‚Р°РєС‚Рё, С‰Рѕ РїРѕС‡РёРЅР°СЋС‚СЊСЃСЏ Р· РїiРґСЂСЏРґРєР° \"%s\":\n", substring);
     for (int i = 0; i < numContacts; i++) {
         if (strstr(contacts[i].surname, substring) != NULL ||
             strstr(contacts[i].name, substring) != NULL ||
             strstr(contacts[i].phone, substring) != NULL ||
             strstr(contacts[i].messenger, substring) != NULL) {
-            printf("Контакт %d:\n", i + 1);
-            printf("Прiзвище: %s\n", contacts[i].surname);
-            printf("iм'я: %s\n", contacts[i].name);
-            printf("Номер телефона: %s\n", contacts[i].phone);
-            printf("Логiн у месенджерi: %s\n", contacts[i].messenger);
+            printf("РљРѕРЅС‚Р°РєС‚ %d:\n", i + 1);
+            printf("РџСЂiР·РІРёС‰Рµ: %s\n", contacts[i].surname);
+            printf("iРј'СЏ: %s\n", contacts[i].name);
+            printf("РќРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°: %s\n", contacts[i].phone);
+            printf("Р›РѕРіiРЅ Сѓ РјРµСЃРµРЅРґР¶РµСЂi: %s\n", contacts[i].messenger);
             printf("-----------------------\n");
             found = 1;
         }
     }
 
     if (!found) {
-        printf("Немає контактiв, що починаються з пiдрядка \"%s\".\n", substring);
+        printf("РќРµРјР°С” РєРѕРЅС‚Р°РєС‚iРІ, С‰Рѕ РїРѕС‡РёРЅР°СЋС‚СЊСЃСЏ Р· РїiРґСЂСЏРґРєР° \"%s\".\n", substring);
     }
 }
 
 
-// Функція для збереження контактів у файл
+// Р¤СѓРЅРєС†С–СЏ РґР»СЏ Р·Р±РµСЂРµР¶РµРЅРЅСЏ РєРѕРЅС‚Р°РєС‚С–РІ Сѓ С„Р°Р№Р»
 void saveContactsToFile(Contact* contacts, int numContacts, const char* filename) {
     char filename_with_extension[100];
     const char* extension = ".csv";
-    // Перевірка, чи містить назва файлу потрібне розширення
+    // РџРµСЂРµРІС–СЂРєР°, С‡Рё РјС–СЃС‚РёС‚СЊ РЅР°Р·РІР° С„Р°Р№Р»Сѓ РїРѕС‚СЂС–Р±РЅРµ СЂРѕР·С€РёСЂРµРЅРЅСЏ
     if (strstr(filename, extension) == NULL) {
         snprintf(filename_with_extension, sizeof(filename_with_extension), "%s%s", filename, extension);
     }
@@ -188,7 +189,7 @@ void saveContactsToFile(Contact* contacts, int numContacts, const char* filename
 
     FILE* file = fopen(filename_with_extension, "w");
     if (file == NULL) {
-        printf("Помилка вiдкриття файлу для запису.\n");
+        printf("РџРѕРјРёР»РєР° РІiРґРєСЂРёС‚С‚СЏ С„Р°Р№Р»Сѓ РґР»СЏ Р·Р°РїРёСЃСѓ.\n");
         return;
     }
 
@@ -199,54 +200,44 @@ void saveContactsToFile(Contact* contacts, int numContacts, const char* filename
     fclose(file);
 }
 
-// Функція для завантаження контактів з файлу
+// Р¤СѓРЅРєС†С–СЏ РґР»СЏ Р·Р°РІР°РЅС‚Р°Р¶РµРЅРЅСЏ РєРѕРЅС‚Р°РєС‚С–РІ Р· С„Р°Р№Р»Сѓ
 void loadContactsFromFile(Contact** contacts, int* numContacts, const char* filename) {
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
-        printf("Помилка вiдкриття файлу для читання.\n");
+        printf("РџРѕРјРёР»РєР° РІiРґРєСЂРёС‚С‚СЏ С„Р°Р№Р»Сѓ РґР»СЏ С‡РёС‚Р°РЅРЅСЏ.\n");
         return;
     }
 
     *numContacts = 0;
     char buffer[100];
 
+    // Р—РІС–СЂСЏС”РјРѕ РєРѕР¶РµРЅ СЂСЏРґРѕРє Сѓ С„Р°Р№Р»С–
     while (fgets(buffer, sizeof(buffer), file) != NULL) {
         (*numContacts)++;
         *contacts = (Contact*)realloc(*contacts, (*numContacts) * sizeof(Contact));
 
-        // Розділяємо рядок на поля за допомогою функції strtok
-        char* token = strtok(buffer, ".");
-        int fieldIndex = 0;
-        while (token != NULL) {
-            // Визначаємо поле, до якого належить токен
-            switch (fieldIndex) {
-            case 0:
-                (*contacts)[(*numContacts) - 1].surname = _strdup(token);
-                break;
-            case 1:
-                (*contacts)[(*numContacts) - 1].name = _strdup(token);
-                break;
-            case 2:
-                (*contacts)[(*numContacts) - 1].phone = _strdup(token);
-                break;
-            case 3:
-                (*contacts)[(*numContacts) - 1].messenger = _strdup(token);
-                break;
-            }
+        // Р’РёРґС–Р»СЏС”РјРѕ РїР°Рј'СЏС‚СЊ РґР»СЏ РїРѕР»С–РІ РєРѕРЅС‚Р°РєС‚Сѓ
+        (*contacts)[(*numContacts) - 1].surname = (char*)malloc(50 * sizeof(char));
+        (*contacts)[(*numContacts) - 1].name = (char*)malloc(50 * sizeof(char));
+        (*contacts)[(*numContacts) - 1].phone = (char*)malloc(20 * sizeof(char));
+        (*contacts)[(*numContacts) - 1].messenger = (char*)malloc(50 * sizeof(char));
 
-            // Переходимо до наступного токена
-            token = strtok(NULL, ".");
-            fieldIndex++;
-        }
+        // Р РѕР·РґС–Р»СЏС”РјРѕ СЂСЏРґРѕРє РЅР° РїРѕР»СЏ Р·Р° РґРѕРїРѕРјРѕРіРѕСЋ С„СѓРЅРєС†С–С— sscanf
+        sscanf(buffer, "%[^.].%[^.].%[^.].%[^.]",
+            (*contacts)[(*numContacts) - 1].surname,
+            (*contacts)[(*numContacts) - 1].name,
+            (*contacts)[(*numContacts) - 1].phone,
+            (*contacts)[(*numContacts) - 1].messenger);
     }
 
     fclose(file);
 }
 
+
 int checkAccessKey(const char* accessKey, const char* keyFilename) {
     FILE* file = fopen(keyFilename, "r");
     if (file == NULL) {
-        printf("Помилка вiдкриття файлу з ключем доступу.\n");
+        printf("РџРѕРјРёР»РєР° РІiРґРєСЂРёС‚С‚СЏ С„Р°Р№Р»Сѓ Р· РєР»СЋС‡РµРј РґРѕСЃС‚СѓРїСѓ.\n");
         return 0;
     }
 
@@ -264,9 +255,9 @@ int checkAccessKey(const char* accessKey, const char* keyFilename) {
     }
 }
 
-// Функція для отримання ключа доступу від користувача
+// Р¤СѓРЅРєС†С–СЏ РґР»СЏ РѕС‚СЂРёРјР°РЅРЅСЏ РєР»СЋС‡Р° РґРѕСЃС‚СѓРїСѓ РІС–Рґ РєРѕСЂРёСЃС‚СѓРІР°С‡Р°
 void getAccessKey(char* accessKey) {
-    printf("Введiть ключ доступу: ");
+    printf("Р’РІРµРґiС‚СЊ РєР»СЋС‡ РґРѕСЃС‚СѓРїСѓ: ");
     fgets(accessKey, MAX_ACCESS_KEY_LENGTH, stdin);
     accessKey[strcspn(accessKey, "\n")] = '\0';
 }
