@@ -1,19 +1,48 @@
-Start testing: Jul 09 21:27 EEST
+Start testing: Jul 12 20:11 EEST
 ----------------------------------------------------------
 1/1 Testing: UnitTests
 1/1 Test: UnitTests
 Command: "/home/maksim/Рабочий стол/Практика/programDB/bin/UnitTests"
 Directory: /home/maksim/Рабочий стол/Практика/programDB
-"UnitTests" start time: Jul 09 21:27 EEST
+"UnitTests" start time: Jul 12 20:11 EEST
 Output:
 ----------------------------------------------------------
-Усі тести успішно пройдені.
+[==========] Running 5 tests from 5 test suites.
+[----------] Global test environment set-up.
+[----------] 1 test from CreateRecordTest
+[ RUN      ] CreateRecordTest.CreatesRecord
+[       OK ] CreateRecordTest.CreatesRecord (0 ms)
+[----------] 1 test from CreateRecordTest (0 ms total)
+
+[----------] 1 test from AddRecordTest
+[ RUN      ] AddRecordTest.AddsRecordToList
+[       OK ] AddRecordTest.AddsRecordToList (0 ms)
+[----------] 1 test from AddRecordTest (0 ms total)
+
+[----------] 1 test from ViewRecordsTest
+[ RUN      ] ViewRecordsTest.PrintsRecords
+[       OK ] ViewRecordsTest.PrintsRecords (0 ms)
+[----------] 1 test from ViewRecordsTest (0 ms total)
+
+[----------] 1 test from DelRecordTest
+[ RUN      ] DelRecordTest.MarksRecordAsDeleted
+[       OK ] DelRecordTest.MarksRecordAsDeleted (0 ms)
+[----------] 1 test from DelRecordTest (0 ms total)
+
+[----------] 1 test from ChangingRecordTest
+[ RUN      ] ChangingRecordTest.ModifiesRecord
+[       OK ] ChangingRecordTest.ModifiesRecord (0 ms)
+[----------] 1 test from ChangingRecordTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 5 tests from 5 test suites ran. (0 ms total)
+[  PASSED  ] 5 tests.
 <end of output>
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"UnitTests" end time: Jul 09 21:27 EEST
+"UnitTests" end time: Jul 12 20:11 EEST
 "UnitTests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Jul 09 21:27 EEST
+End testing: Jul 12 20:11 EEST

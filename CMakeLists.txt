@@ -27,7 +27,7 @@ include_directories(${GTEST_INCLUDE_DIRS})
 
 # Додавання тестів
 set(TEST_SOURCES
-    test/test_1.c
+    test/test_1.cpp
     # Додайте інші файли з тестами
 )
 

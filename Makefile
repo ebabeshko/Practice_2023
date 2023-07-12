@@ -200,29 +200,29 @@ module.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DatabaseManager.dir/build.make CMakeFiles/DatabaseManager.dir/module.c.s
 .PHONY : module.c.s
 
-test/test_1.o: test/test_1.c.o
+test/test_1.o: test/test_1.cpp.o
 .PHONY : test/test_1.o
 
 # target to build an object file
-test/test_1.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/UnitTests.dir/build.make CMakeFiles/UnitTests.dir/test/test_1.c.o
-.PHONY : test/test_1.c.o
+test/test_1.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UnitTests.dir/build.make CMakeFiles/UnitTests.dir/test/test_1.cpp.o
+.PHONY : test/test_1.cpp.o
 
-test/test_1.i: test/test_1.c.i
+test/test_1.i: test/test_1.cpp.i
 .PHONY : test/test_1.i
 
 # target to preprocess a source file
-test/test_1.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/UnitTests.dir/build.make CMakeFiles/UnitTests.dir/test/test_1.c.i
-.PHONY : test/test_1.c.i
+test/test_1.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UnitTests.dir/build.make CMakeFiles/UnitTests.dir/test/test_1.cpp.i
+.PHONY : test/test_1.cpp.i
 
-test/test_1.s: test/test_1.c.s
+test/test_1.s: test/test_1.cpp.s
 .PHONY : test/test_1.s
 
 # target to generate assembly for a file
-test/test_1.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/UnitTests.dir/build.make CMakeFiles/UnitTests.dir/test/test_1.c.s
-.PHONY : test/test_1.c.s
+test/test_1.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UnitTests.dir/build.make CMakeFiles/UnitTests.dir/test/test_1.cpp.s
+.PHONY : test/test_1.cpp.s
 
 # Help Target
 help:

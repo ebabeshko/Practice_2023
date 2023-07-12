@@ -1,1 +1,1 @@
-/usr/bin/gcc CMakeFiles/UnitTests.dir/test/test_1.c.o -o bin/UnitTests  /usr/lib/libgtest_main.so.1.13.0 /usr/lib/libgtest.so.1.13.0 
+/usr/bin/g++ CMakeFiles/UnitTests.dir/test/test_1.cpp.o -o bin/UnitTests  /usr/lib/libgtest_main.so.1.13.0 /usr/lib/libgtest.so.1.13.0 
