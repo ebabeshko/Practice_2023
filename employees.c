@@ -1,3 +1,10 @@
+/**
+* @file employees.c
+* @author Коптєв І.О., гр. 515б, варіант 23
+* @date 11 липня 2023
+* @brief Навчальна практика
+* Інформація про співробітників
+*/
 #include <stdio.h>
 #include <locale.h>
 #include <string.h>
