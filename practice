@@ -1,1 +1,248 @@
+/**
+* @file practice.c
+* @author Павленко А.А., гр. 515б, варіант 2
+* @date 11 липня 2023
+* @brief Навчальна практика
+*
+* База даних автомобілів
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Структура для зберігання інформації про автомобілі
+typedef struct {
+    int year;
+    char brand_model[50];
+    char body_type[20];
+    char transmission[20];
+    char color[20];
+    int deleted; // Признак видаленого запису
+} Car;
+
+// Функція для додавання запису про автомобіль
+void addCar(Car **database, int *count) {
+    Car newCar;
+    printf("Рік випуску: ");
+    scanf("%d", &newCar.year);
+    printf("Марка та модель: ");
+    scanf(" %[^\n]", newCar.brand_model);
+    printf("Тип кузову: ");
+    scanf(" %[^\n]", newCar.body_type);
+    printf("Тип коробки передач: ");
+    scanf(" %[^\n]", newCar.transmission);
+    printf("Колір: ");
+    scanf(" %[^\n]", newCar.color);
+    newCar.deleted = 0; // Позначаємо, що запис не видалений
+
+    (*count)++;
+    *database = (Car*)realloc(*database, (*count) * sizeof(Car));
+    (*database)[*count - 1] = newCar;
+
+    printf("Запис додано успішно.\n");
+}
+
+// Функція для видалення запису за ідентифікаційним номером
+void deleteCar(Car *database, int count) {
+    int id;
+    printf("Введіть ідентифікаційний номер запису, який потрібно видалити: ");
+    scanf("%d", &id);
+
+    if (id >= 1 && id <= count && !database[id - 1].deleted) {
+        database[id - 1].deleted = 1;
+        printf("Запис видалено успішно.\n");
+    } else {
+        printf("Запис з таким ідентифікаційним номером не знайдено або вже видалений.\n");
+    }
+}
+
+// Функція для перегляду всіх записів
+void viewCars(Car *database, int count) {
+    printf("Усі записи про автомобілі:\n");
+    printf("----------------------------------------------------------------\n");
+    printf("ID\t| Рік випуску\t| Марка та модель\t| Тип кузову\t| Тип коробки передач\t| Колір\n");
+    printf("----------------------------------------------------------------\n");
+
+    for (int i = 0; i < count; i++) {
+        if (!database[i].deleted) {
+            printf("%d\t| %d\t\t| %s\t\t| %s\t\t| %s\t\t\t| %s\n", i + 1, database[i].year, database[i].brand_model,
+                   database[i].body_type, database[i].transmission, database[i].color);
+        }
+    }
+
+    printf("----------------------------------------------------------------\n");
+}
+
+// Функція для зміни запису за ідентифікаційним номером
+void editCar(Car *database, int count) {
+    int id;
+    printf("Введіть ідентифікаційний номер запису, який потрібно змінити: ");
+    scanf("%d", &id);
+
+    if (id >= 1 && id <= count && !database[id - 1].deleted) {
+        Car updatedCar;
+        printf("Рік випуску: ");
+        scanf("%d", &updatedCar.year);
+        printf("Марка та модель: ");
+        scanf(" %[^\n]", updatedCar.brand_model);
+        printf("Тип кузову: ");
+        scanf(" %[^\n]", updatedCar.body_type);
+        printf("Тип коробки передач: ");
+        scanf(" %[^\n]", updatedCar.transmission);
+        printf("Колір: ");
+        scanf(" %[^\n]", updatedCar.color);
+
+        database[id - 1] = updatedCar;
+        printf("Запис змінено успішно.\n");
+    } else {
+        printf("Запис з таким ідентифікаційним номером не знайдено або видалений.\n");
+    }
+}
+
+// Функція для збереження бази даних у файл
+void saveDatabase(Car *database, int count, const char *filename) {
+    FILE *file = fopen(filename, "wb");
+    if (file == NULL) {
+        printf("Помилка відкриття файлу.\n");
+        return;
+    }
+
+    fwrite(database, sizeof(Car), count, file);
+    fclose(file);
+    printf("Базу даних збережено у файл '%s' успішно.\n", filename);
+}
+
+// Функція для експорту бази даних у текстовий файл формату CSV
+void exportDatabase(Car *database, int count, const char *filename) {
+    FILE *file = fopen(filename, "w");
+    if (file == NULL) {
+        printf("Помилка відкриття файлу.\n");
+        return;
+    }
+
+    for (int i = 0; i < count; i++) {
+        if (!database[i].deleted) {
+            fprintf(file, "%d;%d;%s;%s;%s;%s\n", i + 1, database[i].year, database[i].brand_model,
+                    database[i].body_type, database[i].transmission, database[i].color);
+        }
+    }
+
+    fclose(file);
+    printf("Базу даних експортовано у файл '%s' успішно.\n", filename);
+}
+
+int main() {
+    // Зчитування конфігураційного файлу
+    char configFilename[50];
+    sprintf(configFilename, "%s.cfg", "database");
+    FILE *configFile = fopen(configFilename, "r");
+    if (configFile == NULL) {
+        printf("Створення конфігураційного файлу та бази даних...\n");
+        FILE *newDatabaseFile = fopen("new_base.dat", "wb");
+        if (newDatabaseFile == NULL) {
+            printf("Помилка створення бази даних.\n");
+            return 1;
+        }
+        fclose(newDatabaseFile);
+
+        FILE *newConfigFile = fopen(configFilename, "w");
+        if (newConfigFile == NULL) {
+            printf("Помилка створення конфігураційного файлу.\n");
+            return 1;
+        }
+        fprintf(newConfigFile, "DB=new_base.dat\n");
+        fprintf(newConfigFile, "KEY=01AFC567\n");
+        fclose(newConfigFile);
+
+        configFile = fopen(configFilename, "r");
+    }
+
+    char databaseFilename[50];
+    char licenseKey[20];
+    while (!feof(configFile)) {
+        char line[100];
+        fgets(line, sizeof(line), configFile);
+
+        if (strstr(line, "DB=") != NULL) {
+            sscanf(line, "DB=%s", databaseFilename);
+        } else if (strstr(line, "KEY=") != NULL) {
+            sscanf(line, "KEY=%s", licenseKey);
+        }
+    }
+    fclose(configFile);
+
+    // Перевірка ліцензійного ключа
+    if (strcmp(licenseKey, "01AFC567") != 0) {
+        printf("Некоректний ліцензійний ключ. Спеціальні функції програми недоступні.\n");
+        return 1;
+    }
+
+    // Зчитування бази даних з файлу
+    FILE *databaseFile = fopen(databaseFilename, "rb");
+    if (databaseFile == NULL) {
+        printf("Помилка відкриття бази даних.\n");
+        return 1;
+    }
+
+    Car *database = NULL;
+    int count = 0;
+    while (!feof(databaseFile)) {
+        Car car;
+        fread(&car, sizeof(Car), 1, databaseFile);
+
+        if (!feof(databaseFile)) {
+            count++;
+            database = (Car*)realloc(database, count * sizeof(Car));
+            database[count - 1] = car;
+        }
+    }
+    fclose(databaseFile);
+
+    // Головне меню програми
+    int choice;
+    do {
+        printf("\nМеню:\n");
+        printf("1. Додати запис\n");
+        printf("2. Видалити запис\n");
+        printf("3. Переглянути записи\n");
+        printf("4. Змінити запис\n");
+        printf("5. Зберегти базу даних у файл\n");
+        printf("6. Експортувати базу даних у CSV файл\n");
+        printf("0. Вийти\n");
+        printf("Ваш вибір: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                addCar(&database, &count);
+                break;
+            case 2:
+                deleteCar(database, count);
+                break;
+            case 3:
+                viewCars(database, count);
+                break;
+            case 4:
+                editCar(database, count);
+                break;
+            case 5:
+                saveDatabase(database, count, databaseFilename);
+                break;
+            case 6:
+                exportDatabase(database, count, "database.csv");
+                break;
+            case 0:
+                printf("До побачення!\n");
+                break;
+            default:
+                printf("Невірний вибір. Спробуйте ще раз.\n");
+                break;
+        }
+    } while (choice != 0);
+
+    free(database);
+
+    return 0;
+}
 
