@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <locale.h>
-#include "m_func.h"
+#include "functions.h"
 
 
 
@@ -28,7 +28,7 @@ int main() {
 		checker = 0;
 	}
 
-	head = loadDatabase(db_file);
+	head = load_database(db_file);
 
 	while (1) {
 
@@ -37,16 +37,16 @@ int main() {
 		printf("   2. Видалити запис\n");
 		printf("   3. Переглянути записи\n");
 		printf("   4. Змiнити запис\n");
-		printf("   5. Зберегти базу даних у файл\n");
+		printf("   5. Зберегти базу даних\n");
 		printf("   6. Вийти\n");
 
 		if (checker == 1) {
-			printf("   Спеціальні функції:\n");
-			printf("   7. Вивести список співробітників введенної посади прийнятих після введенної дати\n");
-			printf("   8. Вийти\n");
-			printf("   Додаткові функції:\n");
-			printf("   9. Зберегти у файлі .dat\n");
-			printf("   10. Зберегти у файлі .cvs\n");
+			printf("   Спецiальнi функцiї:\n");
+			printf("   7. Вивести список спiвробiтникiв введенної посади прийнятих пiсля введенної дати\n");
+			printf("   8. Вивести список спiвробiтникiв заробiтня плата яких вище заданої\n");
+			printf("   Додатковi функцiї:\n");
+			printf("   9. Зберегти у файлi .dat\n");
+			printf("   10. Зберегти у файлi .cvs\n");
 		}
 
 		printf("\n   Ваш вибiр: ");
@@ -55,40 +55,51 @@ int main() {
 
 		switch (choice) {
 		case 1:
-			addRecord(&head);
+			add_record(&head);
 			break;
 		case 2:
 			printf("   Введiть iдентифiкацiйний номер запису для видалення: ");
 			scanf("%d", &id);
-			deleteRecord(&head, id);
+			delete_record(&head, id);
+			getchar();
 			break;
 		case 3:
-			displayRecords(head);
+			display_records(head);
 			break;
 		case 4:
 			printf("   Введiть iдентифiкацiйний номер запису для змiни: ");
 			scanf("%d", &id);
-			modifyRecord(head, id);
+			modify_record(head, id);
+			getchar();
 			break;
 		case 5:
-			saveDatabase(head, db_file);
+			save_database(head, db_file);
 			break;
 		case 6: {
-			saveDatabase(head, db_file);
-			freeMemory(head);
+			save_database(head, db_file);
+			free_memory(head);
 			return 0; }
 			  if (checker = 1) {
 		case 7:
-				printf("Введіть назву посади: ");
+				printf("Введiть назву посади: ");
 				char post[50];
+				getchar();
 				scanf("%49s", post);
 
-				printf("Введіть дату: ");
+				printf("Введiть дату: ");
 				int year, month, day;
+				getchar();
 				scanf("%d %d %d", &day, &month, &year);
 
-				filter_position_date(head, post, day, month, year);
+				filter_post_date(head, post, day, month, year);
+				break;
 		case 8:
+				printf("Введiть заробiтню плату: ");
+				float salary_fil;
+				scanf("%f", &salary_fil);
+				filter_salary(head, salary_fil);
+				break;
+
 		case 9: export_dat(head);
 				break;
 		case 10: export_cvs(head);
