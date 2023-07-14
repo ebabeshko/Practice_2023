@@ -1,4 +1,13 @@
-﻿#define _CRT_SECURE_NO_WARNINGS
+﻿/**
+* @file functions.h
+* @author Тарценко М.В., гр. 515і, варіант 13
+* @date 26 червня 2023
+* @brief Навчальна практика
+*
+* База даних студентів
+*/
+
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
