@@ -31,6 +31,7 @@ void delete_record(Employee** head, int id);
 void display_records(Employee* head);
 void modify_record(Employee* head, int id);
 void save_database(Employee* head, const char* fname);
+void free_memory(Employee* head);
 
 void export_cvs(Employee* head);
 void export_dat(Employee* head);

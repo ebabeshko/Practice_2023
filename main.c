@@ -58,7 +58,7 @@ int main() {
 			printf("\n");
 			printf("   Додатковi функцiї:\n");
 			printf("   9. Зберегти у файлi .dat\n");
-			printf("   10. Зберегти у файлi .cvs\n");
+			printf("   10. Зберегти у файлi .csv\n");
 		}
 
 		printf("\n   Ваш вибiр: ");
@@ -93,20 +93,19 @@ int main() {
 			return 0; }
 			  if (checker = 1) {
 		case 7:
-			printf("Введiть назву посади: ");
-			char post[50];
-			getchar();
-			scanf("%49s", post);
-
-			printf("Введiть дату: ");
+			
+			
+			printf("   Введiть назву посади: ");
+			char work[100];
+			scanf(" %[^\n]", work);
+			printf("   Введiть дату: ");
 			int year, month, day;
-			getchar();
 			scanf("%d %d %d", &day, &month, &year);
-
-			filter_post_date(head, post, day, month, year);
+			
+			filter_post_date(head, work, day, month, year);
 			break;
 		case 8:
-			printf("Введiть заробiтню плату: ");
+			printf("   Введiть заробiтню плату: ");
 			float salary_fil;
 			scanf("%f", &salary_fil);
 			filter_salary(head, salary_fil);

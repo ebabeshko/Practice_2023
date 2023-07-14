@@ -62,6 +62,8 @@ void keygen(const char* fname, const char* bname, char* key) {
 
 //функція завантаження бази даних з файлу
 Employee* load_database(const char* bname) {
+	FILE* creator = fopen(bname, "ab");
+	fclose(creator);
 	FILE* file = fopen(bname, "rb");
 	if (file == NULL) {
 		printf("   Помилка при вiдкриттi файлу!\n");
@@ -282,7 +284,7 @@ void export_dat(Employee* head) {
 
 //функція фільтрування співробітників за посадою і датою прийняття на роботу
 void filter_post_date(Employee* head, const char* post, int day, int month, int year) {
-	printf("   Спiвробiтники з посадою \"%s\", прийнятi пiсля %02d %02d %04d:\n", post, day, month, year);
+	printf("\n   Спiвробiтники з посадою \"%s\", прийнятi пiсля %02d %02d %04d:\n", post, day, month, year);
 
 	Employee* current = head;
 	int found_employees = 0;
