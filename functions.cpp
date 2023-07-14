@@ -1,10 +1,10 @@
 /**
 * @file functions.cpp
-* @author Золотарьов Д.А., гр. 515б, варіант 13
-* @date 13 липня 2023
-* @brief Навчальна практика
+* @author Р—РѕР»РѕС‚Р°СЂСЊРѕРІ Р”.Рђ., РіСЂ. 515Р±, РІР°СЂС–Р°РЅС‚ 13
+* @date 13 Р»РёРїРЅСЏ 2023
+* @brief РќР°РІС‡Р°Р»СЊРЅР° РїСЂР°РєС‚РёРєР°
 *
-* База даних співробітників
+* Р‘Р°Р·Р° РґР°РЅРёС… СЃРїС–РІСЂРѕР±С–С‚РЅРёРєС–РІ
 */
 // ---
 #define _CRT_SECURE_NO_WARNINGS
@@ -32,14 +32,14 @@ void generate_license_key(char* key) {
     struct tm* time_info;
     char date_str[KEY_LENGTH + 1];
 
-    // Отримуємо поточний час
+    // РћС‚СЂРёРјСѓС”РјРѕ РїРѕС‚РѕС‡РЅРёР№ С‡Р°СЃ
     time(&current_time);
     time_info = localtime(&current_time);
 
-    // Форматуємо дату у потрібний нам формат
+    // Р¤РѕСЂРјР°С‚СѓС”РјРѕ РґР°С‚Сѓ Сѓ РїРѕС‚СЂС–Р±РЅРёР№ РЅР°Рј С„РѕСЂРјР°С‚
     strftime(date_str, sizeof(date_str), "%d%m%Y", time_info);
 
-    // Копіюємо дату у ключ
+    // РљРѕРїС–СЋС”РјРѕ РґР°С‚Сѓ Сѓ РєР»СЋС‡
     strcpy(key, date_str);
 }
 
@@ -49,34 +49,34 @@ void create_config_file(const char* key) {
 
     FILE* config_file = fopen("config.txt", "w");
     if (config_file == NULL) {
-        printf("Помилка створення конфігураційного файлу.\n");
+        printf("РџРѕРјРёР»РєР° СЃС‚РІРѕСЂРµРЅРЅСЏ РєРѕРЅС„С–РіСѓСЂР°С†С–Р№РЅРѕРіРѕ С„Р°Р№Р»Сѓ.\n");
         return;
     }
 
-    // Записуємо інформацію у конфігураційний файл
-    fprintf(config_file, "; Файл бази даних\n");
-    fprintf(config_file, "; Записується у форматі DB = <шлях_до_файлу>\n");
+    // Р—Р°РїРёСЃСѓС”РјРѕ С–РЅС„РѕСЂРјР°С†С–СЋ Сѓ РєРѕРЅС„С–РіСѓСЂР°С†С–Р№РЅРёР№ С„Р°Р№Р»
+    fprintf(config_file, "; Р¤Р°Р№Р» Р±Р°Р·Рё РґР°РЅРёС…\n");
+    fprintf(config_file, "; Р—Р°РїРёСЃСѓС”С‚СЊСЃСЏ Сѓ С„РѕСЂРјР°С‚С– DB = <С€Р»СЏС…_РґРѕ_С„Р°Р№Р»Сѓ>\n");
     fprintf(config_file, "DB = new_base.dat\n");
-    fprintf(config_file, "; Ліцензійний ключ\n");
+    fprintf(config_file, "; Р›С–С†РµРЅР·С–Р№РЅРёР№ РєР»СЋС‡\n");
     fprintf(config_file, "KEY = %s\n", generated_key);
 
     fclose(config_file);
 
-    // Перевірка наявності файлу бази даних new_base.dat
+    // РџРµСЂРµРІС–СЂРєР° РЅР°СЏРІРЅРѕСЃС‚С– С„Р°Р№Р»Сѓ Р±Р°Р·Рё РґР°РЅРёС… new_base.dat
     FILE* db_file = fopen("new_base.dat", "rb");
     if (db_file == NULL) {
-        // Файл не існує, створюємо його
+        // Р¤Р°Р№Р» РЅРµ С–СЃРЅСѓС”, СЃС‚РІРѕСЂСЋС”РјРѕ Р№РѕРіРѕ
         db_file = fopen("new_base.dat", "wb");
         if (db_file == NULL) {
-            printf("Помилка створення файлу бази даних.\n");
+            printf("РџРѕРјРёР»РєР° СЃС‚РІРѕСЂРµРЅРЅСЏ С„Р°Р№Р»Сѓ Р±Р°Р·Рё РґР°РЅРёС….\n");
             return;
         }
-        printf("Створено нову базу даних з іменем new_base.dat.\n");
+        printf("РЎС‚РІРѕСЂРµРЅРѕ РЅРѕРІСѓ Р±Р°Р·Сѓ РґР°РЅРёС… Р· С–РјРµРЅРµРј new_base.dat.\n");
         fclose(db_file);
     }
     else {
         fclose(db_file);
-        printf("Файл бази даних new_base.dat вже існує.\n");
+        printf("Р¤Р°Р№Р» Р±Р°Р·Рё РґР°РЅРёС… new_base.dat РІР¶Рµ С–СЃРЅСѓС”.\n");
     }
 }
 
@@ -85,20 +85,20 @@ void create_config_file(const char* key) {
 void read_config(char* db_file, char* key) {
     FILE* config_file = fopen("config.txt", "r");
     if (config_file == NULL) {
-        printf("Помилка відкриття конфігураційного файлу.\nФайл буде створено автоматично.\n");
+        printf("РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ РєРѕРЅС„С–РіСѓСЂР°С†С–Р№РЅРѕРіРѕ С„Р°Р№Р»Сѓ.\nР¤Р°Р№Р» Р±СѓРґРµ СЃС‚РІРѕСЂРµРЅРѕ Р°РІС‚РѕРјР°С‚РёС‡РЅРѕ.\n");
         create_config_file(key);
         return;
     }
     char line[50];
     while (fgets(line, sizeof(line), config_file) != NULL) {
         if (strstr(line, "DB = ") != NULL) {
-            // Знайдено рядок зі значенням бази даних
-            // Копіюємо значення після "DB = " у змінну db_file
+            // Р—РЅР°Р№РґРµРЅРѕ СЂСЏРґРѕРє Р·С– Р·РЅР°С‡РµРЅРЅСЏРј Р±Р°Р·Рё РґР°РЅРёС…
+            // РљРѕРїС–СЋС”РјРѕ Р·РЅР°С‡РµРЅРЅСЏ РїС–СЃР»СЏ "DB = " Сѓ Р·РјС–РЅРЅСѓ db_file
             strcpy(db_file, line + strlen("DB = "));
         }
         else if (strstr(line, "KEY = ") != NULL) {
-            // Знайдено рядок зі значенням ключа
-            // Копіюємо значення після "KEY = " у змінну key
+            // Р—РЅР°Р№РґРµРЅРѕ СЂСЏРґРѕРє Р·С– Р·РЅР°С‡РµРЅРЅСЏРј РєР»СЋС‡Р°
+            // РљРѕРїС–СЋС”РјРѕ Р·РЅР°С‡РµРЅРЅСЏ РїС–СЃР»СЏ "KEY = " Сѓ Р·РјС–РЅРЅСѓ key
             strcpy(key, line + strlen("KEY = "));
         }
     }
@@ -112,40 +112,40 @@ void read_config(char* db_file, char* key) {
 void add_person(const char* db_file) {
     FILE* file = fopen(db_file, "ab");
     if (file == NULL) {
-        printf("Помилка відкриття файлу бази даних.\n");
+        printf("РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ С„Р°Р№Р»Сѓ Р±Р°Р·Рё РґР°РЅРёС….\n");
         return;
     }
 
     Person person;
-    printf("Введіть прізвище, ім'я та по батькові (через пробіл): ");
+    printf("Р’РІРµРґС–С‚СЊ РїСЂС–Р·РІРёС‰Рµ, С–Рј'СЏ С‚Р° РїРѕ Р±Р°С‚СЊРєРѕРІС– (С‡РµСЂРµР· РїСЂРѕР±С–Р»): ");
     scanf(" %[^\n]s", person.name);
-    printf("Введіть посаду: ");
+    printf("Р’РІРµРґС–С‚СЊ РїРѕСЃР°РґСѓ: ");
     scanf(" %[^\n]s", person.position);
-    printf("Введіть дату прийняття на роботу (через пробіл): ");
+    printf("Р’РІРµРґС–С‚СЊ РґР°С‚Сѓ РїСЂРёР№РЅСЏС‚С‚СЏ РЅР° СЂРѕР±РѕС‚Сѓ (С‡РµСЂРµР· РїСЂРѕР±С–Р»): ");
     scanf("%d %d %d", &person.hire_date[0], &person.hire_date[1], &person.hire_date[2]);
-    printf("Введіть встановлену заробітну плату: ");
+    printf("Р’РІРµРґС–С‚СЊ РІСЃС‚Р°РЅРѕРІР»РµРЅСѓ Р·Р°СЂРѕР±С–С‚РЅСѓ РїР»Р°С‚Сѓ: ");
     scanf("%f", &person.salary);
 
     fwrite(&person, sizeof(Person), 1, file);
     fclose(file);
 
-    printf("Персона додана успішно.\n");
+    printf("РџРµСЂСЃРѕРЅР° РґРѕРґР°РЅР° СѓСЃРїС–С€РЅРѕ.\n");
 }
 
 void delete_person(const char* db_file) {
     FILE* file = fopen(db_file, "rb");
     if (file == NULL) {
-        printf("Помилка відкриття файлу бази даних.\n");
+        printf("РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ С„Р°Р№Р»Сѓ Р±Р°Р·Рё РґР°РЅРёС….\n");
         return;
     }
 
     int id;
-    printf("Введіть ідентифікаційний номер персони, яку бажаєте видалити: ");
+    printf("Р’РІРµРґС–С‚СЊ С–РґРµРЅС‚РёС„С–РєР°С†С–Р№РЅРёР№ РЅРѕРјРµСЂ РїРµСЂСЃРѕРЅРё, СЏРєСѓ Р±Р°Р¶Р°С”С‚Рµ РІРёРґР°Р»РёС‚Рё: ");
     scanf("%d", &id);
 
     FILE* temp_file = fopen("temp.dat", "wb");
     if (temp_file == NULL) {
-        printf("Помилка відкриття тимчасового файлу.\n");
+        printf("РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ С‚РёРјС‡Р°СЃРѕРІРѕРіРѕ С„Р°Р№Р»Сѓ.\n");
         fclose(file);
         return;
     }
@@ -166,10 +166,10 @@ void delete_person(const char* db_file) {
     if (found) {
         remove(db_file);
         rename("temp.dat", db_file);
-        printf("Персона успішно видалена.\n");
+        printf("РџРµСЂСЃРѕРЅР° СѓСЃРїС–С€РЅРѕ РІРёРґР°Р»РµРЅР°.\n");
     }
     else {
-        printf("Персону з ідентифікаційним номером %d не знайдено.\n", id);
+        printf("РџРµСЂСЃРѕРЅСѓ Р· С–РґРµРЅС‚РёС„С–РєР°С†С–Р№РЅРёРј РЅРѕРјРµСЂРѕРј %d РЅРµ Р·РЅР°Р№РґРµРЅРѕ.\n", id);
         remove("temp.dat");
     }
 }
@@ -177,18 +177,18 @@ void delete_person(const char* db_file) {
 void display_all(const char* db_file) {
     FILE* file = fopen(db_file, "rb");
     if (file == NULL) {
-        printf("Помилка відкриття файлу бази даних.\n");
+        printf("РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ С„Р°Р№Р»Сѓ Р±Р°Р·Рё РґР°РЅРёС….\n");
         return;
     }
 
     Person person;
     int count = 0;
     while (fread(&person, sizeof(Person), 1, file) == 1) {
-        printf("=== Персона %d ===\n", count + 1);
-        printf("Прізвище, ім'я та по батькові: %s\n", person.name);
-        printf("Посада: %s\n", person.position);
-        printf("Дата прийняття на роботу: %d.%d.%d\n", person.hire_date[0], person.hire_date[1], person.hire_date[2]);
-        printf("Встановлена заробітна плата: %.2f\n", person.salary);
+        printf("=== РџРµСЂСЃРѕРЅР° %d ===\n", count + 1);
+        printf("РџСЂС–Р·РІРёС‰Рµ, С–Рј'СЏ С‚Р° РїРѕ Р±Р°С‚СЊРєРѕРІС–: %s\n", person.name);
+        printf("РџРѕСЃР°РґР°: %s\n", person.position);
+        printf("Р”Р°С‚Р° РїСЂРёР№РЅСЏС‚С‚СЏ РЅР° СЂРѕР±РѕС‚Сѓ: %d.%d.%d\n", person.hire_date[0], person.hire_date[1], person.hire_date[2]);
+        printf("Р’СЃС‚Р°РЅРѕРІР»РµРЅР° Р·Р°СЂРѕР±С–С‚РЅР° РїР»Р°С‚Р°: %.2f\n", person.salary);
         printf("=================\n");
         count++;
     }
@@ -196,33 +196,33 @@ void display_all(const char* db_file) {
     fclose(file);
 
     if (count == 0) {
-        printf("У базі даних немає записів.\n");
+        printf("РЈ Р±Р°Р·С– РґР°РЅРёС… РЅРµРјР°С” Р·Р°РїРёСЃС–РІ.\n");
     }
     else {
-        printf("Загалом знайдено %d персон.\n", count);
+        printf("Р—Р°РіР°Р»РѕРј Р·РЅР°Р№РґРµРЅРѕ %d РїРµСЂСЃРѕРЅ.\n", count);
     }
 }
 
 void display_by_salary(const char* db_file, const char* key) {
     FILE* file = fopen(db_file, "rb");
     if (file == NULL) {
-        printf("Помилка відкриття файлу бази даних.\n");
+        printf("РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ С„Р°Р№Р»Сѓ Р±Р°Р·Рё РґР°РЅРёС….\n");
         return;
     }
 
     float salary;
-    printf("Введіть мінімальну заробітну плату: ");
+    printf("Р’РІРµРґС–С‚СЊ РјС–РЅС–РјР°Р»СЊРЅСѓ Р·Р°СЂРѕР±С–С‚РЅСѓ РїР»Р°С‚Сѓ: ");
     scanf("%f", &salary);
 
     Person person;
     int count = 0;
     while (fread(&person, sizeof(Person), 1, file) == 1) {
         if (person.salary > salary) {
-            printf("=== Персона %d ===\n", count + 1);
-            printf("Прізвище, ім'я та по батькові: %s\n", person.name);
-            printf("Посада: %s\n", person.position);
-            printf("Дата прийняття на роботу: %d.%d.%d\n", person.hire_date[0], person.hire_date[1], person.hire_date[2]);
-            printf("Встановлена заробітна плата: %.2f\n", person.salary);
+            printf("=== РџРµСЂСЃРѕРЅР° %d ===\n", count + 1);
+            printf("РџСЂС–Р·РІРёС‰Рµ, С–Рј'СЏ С‚Р° РїРѕ Р±Р°С‚СЊРєРѕРІС–: %s\n", person.name);
+            printf("РџРѕСЃР°РґР°: %s\n", person.position);
+            printf("Р”Р°С‚Р° РїСЂРёР№РЅСЏС‚С‚СЏ РЅР° СЂРѕР±РѕС‚Сѓ: %d.%d.%d\n", person.hire_date[0], person.hire_date[1], person.hire_date[2]);
+            printf("Р’СЃС‚Р°РЅРѕРІР»РµРЅР° Р·Р°СЂРѕР±С–С‚РЅР° РїР»Р°С‚Р°: %.2f\n", person.salary);
             printf("=================\n");
             count++;
         }
@@ -231,29 +231,29 @@ void display_by_salary(const char* db_file, const char* key) {
     fclose(file);
 
     if (count == 0) {
-        printf("Не знайдено співробітників з заробітною платою вище вказаної.\n");
+        printf("РќРµ Р·РЅР°Р№РґРµРЅРѕ СЃРїС–РІСЂРѕР±С–С‚РЅРёРєС–РІ Р· Р·Р°СЂРѕР±С–С‚РЅРѕСЋ РїР»Р°С‚РѕСЋ РІРёС‰Рµ РІРєР°Р·Р°РЅРѕС—.\n");
     }
     else {
-        printf("Загалом знайдено %d співробітників.\n", count);
+        printf("Р—Р°РіР°Р»РѕРј Р·РЅР°Р№РґРµРЅРѕ %d СЃРїС–РІСЂРѕР±С–С‚РЅРёРєС–РІ.\n", count);
     }
 }
 
 void display_by_position_and_date(const char* db_file, const char* key) {
     FILE* file = fopen(db_file, "rb");
     if (file == NULL) {
-        printf("Помилка відкриття файлу бази даних.\n");
+        printf("РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ С„Р°Р№Р»Сѓ Р±Р°Р·Рё РґР°РЅРёС….\n");
         return;
     }
 
     char position[MAX_POSITION_LENGTH];
-    printf("Введіть посаду: ");
+    printf("Р’РІРµРґС–С‚СЊ РїРѕСЃР°РґСѓ: ");
     scanf(" %[^\n]s", position);
-    getchar();  // Очистити буфер вводу
+    getchar();  // РћС‡РёСЃС‚РёС‚Рё Р±СѓС„РµСЂ РІРІРѕРґСѓ
 
     int year, month, day;
-    printf("Введіть дату (рік, місяць, день (через пробіл)): ");
+    printf("Р’РІРµРґС–С‚СЊ РґР°С‚Сѓ (СЂС–Рє, РјС–СЃСЏС†СЊ, РґРµРЅСЊ (С‡РµСЂРµР· РїСЂРѕР±С–Р»)): ");
     scanf("%d %d %d", &year, &month, &day);
-    getchar();  // Очистити буфер вводу
+    getchar();  // РћС‡РёСЃС‚РёС‚Рё Р±СѓС„РµСЂ РІРІРѕРґСѓ
 
     Person person;
     int count = 0;
@@ -263,11 +263,11 @@ void display_by_position_and_date(const char* db_file, const char* key) {
             (person.hire_date[2] > year ||
                 (person.hire_date[2] == year && person.hire_date[1] > month) ||
                 (person.hire_date[2] == year && person.hire_date[1] == month && person.hire_date[0] > day))) {
-            printf("=== Персона %d ===\n", count + 1);
-            printf("Прізвище, ім'я та по батькові: %s\n", person.name);
-            printf("Посада: %s\n", person.position);
-            printf("Дата прийняття на роботу: %d.%d.%d\n", person.hire_date[0], person.hire_date[1], person.hire_date[2]);
-            printf("Встановлена заробітна плата: %.2f\n", person.salary);
+            printf("=== РџРµСЂСЃРѕРЅР° %d ===\n", count + 1);
+            printf("РџСЂС–Р·РІРёС‰Рµ, С–Рј'СЏ С‚Р° РїРѕ Р±Р°С‚СЊРєРѕРІС–: %s\n", person.name);
+            printf("РџРѕСЃР°РґР°: %s\n", person.position);
+            printf("Р”Р°С‚Р° РїСЂРёР№РЅСЏС‚С‚СЏ РЅР° СЂРѕР±РѕС‚Сѓ: %d.%d.%d\n", person.hire_date[0], person.hire_date[1], person.hire_date[2]);
+            printf("Р’СЃС‚Р°РЅРѕРІР»РµРЅР° Р·Р°СЂРѕР±С–С‚РЅР° РїР»Р°С‚Р°: %.2f\n", person.salary);
             printf("=================\n");
             count++;
         }
@@ -276,23 +276,23 @@ void display_by_position_and_date(const char* db_file, const char* key) {
     fclose(file);
 
     if (count == 0) {
-        printf("Не знайдено співробітників з посадою '%s', прийнятих після %d.%d.%d.\n", position, day, month, year);
+        printf("РќРµ Р·РЅР°Р№РґРµРЅРѕ СЃРїС–РІСЂРѕР±С–С‚РЅРёРєС–РІ Р· РїРѕСЃР°РґРѕСЋ '%s', РїСЂРёР№РЅСЏС‚РёС… РїС–СЃР»СЏ %d.%d.%d.\n", position, day, month, year);
     }
     else {
-        printf("Загалом знайдено %d співробітників з посадою '%s', прийнятих після %d.%d.%d.\n", count, position, day, month, year);
+        printf("Р—Р°РіР°Р»РѕРј Р·РЅР°Р№РґРµРЅРѕ %d СЃРїС–РІСЂРѕР±С–С‚РЅРёРєС–РІ Р· РїРѕСЃР°РґРѕСЋ '%s', РїСЂРёР№РЅСЏС‚РёС… РїС–СЃР»СЏ %d.%d.%d.\n", count, position, day, month, year);
     }
 }
 
 void save_database(const char* db_file, const char* key) {
     FILE* source = fopen(db_file, "rb");
     if (source == NULL) {
-        printf("Помилка відкриття файлу бази даних.\n");
+        printf("РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ С„Р°Р№Р»Сѓ Р±Р°Р·Рё РґР°РЅРёС….\n");
         return;
     }
 
     FILE* dest = fopen("backup.dat", "wb");
     if (dest == NULL) {
-        printf("Помилка створення резервної копії файлу бази даних.\n");
+        printf("РџРѕРјРёР»РєР° СЃС‚РІРѕСЂРµРЅРЅСЏ СЂРµР·РµСЂРІРЅРѕС— РєРѕРїС–С— С„Р°Р№Р»Сѓ Р±Р°Р·Рё РґР°РЅРёС….\n");
         fclose(source);
         return;
     }
@@ -305,19 +305,19 @@ void save_database(const char* db_file, const char* key) {
     fclose(source);
     fclose(dest);
 
-    printf("Резервна копія бази даних збережена у файлі backup.dat\n");
+    printf("Р РµР·РµСЂРІРЅР° РєРѕРїС–СЏ Р±Р°Р·Рё РґР°РЅРёС… Р·Р±РµСЂРµР¶РµРЅР° Сѓ С„Р°Р№Р»С– backup.dat\n");
 }
 
 void export_database(const char* db_file, const char* key) {
     FILE* file = fopen(db_file, "rb");
     if (file == NULL) {
-        printf("Помилка відкриття файлу бази даних.\n");
+        printf("РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ С„Р°Р№Р»Сѓ Р±Р°Р·Рё РґР°РЅРёС….\n");
         return;
     }
 
     FILE* export_file = fopen("database.csv", "w");
     if (export_file == NULL) {
-        printf("Помилка створення файлу для експорту бази даних.\n");
+        printf("РџРѕРјРёР»РєР° СЃС‚РІРѕСЂРµРЅРЅСЏ С„Р°Р№Р»Сѓ РґР»СЏ РµРєСЃРїРѕСЂС‚Сѓ Р±Р°Р·Рё РґР°РЅРёС….\n");
         fclose(file);
         return;
     }
@@ -330,7 +330,7 @@ void export_database(const char* db_file, const char* key) {
     fclose(file);
     fclose(export_file);
 
-    printf("База даних експортована у файл database.csv\n");
+    printf("Р‘Р°Р·Р° РґР°РЅРёС… РµРєСЃРїРѕСЂС‚РѕРІР°РЅР° Сѓ С„Р°Р№Р» database.csv\n");
 }
 #define MAX_FILENAME_LENGTH 100
 #define MAX_KEY_LENGTH 100
@@ -339,19 +339,19 @@ void change_config() {
     char key[MAX_KEY_LENGTH];
     char user_key[MAX_KEY_LENGTH];
 
-    printf("Введіть нове ім'я файлу бази даних: ");
+    printf("Р’РІРµРґС–С‚СЊ РЅРѕРІРµ С–Рј'СЏ С„Р°Р№Р»Сѓ Р±Р°Р·Рё РґР°РЅРёС…: ");
     scanf("%s", db_file);
 
-    printf("Введіть новий ліцензійний ключ: ");
+    printf("Р’РІРµРґС–С‚СЊ РЅРѕРІРёР№ Р»С–С†РµРЅР·С–Р№РЅРёР№ РєР»СЋС‡: ");
     scanf("%s", user_key);
 
-    // Зчитування поточних значень з конфігураційного файлу
+    // Р—С‡РёС‚СѓРІР°РЅРЅСЏ РїРѕС‚РѕС‡РЅРёС… Р·РЅР°С‡РµРЅСЊ Р· РєРѕРЅС„С–РіСѓСЂР°С†С–Р№РЅРѕРіРѕ С„Р°Р№Р»Сѓ
     char current_db_file[MAX_FILENAME_LENGTH];
     char current_key[MAX_KEY_LENGTH];
 
     FILE* config_file = fopen("config.txt", "r");
     if (config_file == NULL) {
-        printf("Помилка відкриття конфігураційного файлу.\n");
+        printf("РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ РєРѕРЅС„С–РіСѓСЂР°С†С–Р№РЅРѕРіРѕ С„Р°Р№Р»Сѓ.\n");
         return;
     }
 
@@ -370,63 +370,63 @@ void change_config() {
 
     config_file = fopen("config.txt", "w");
     if (config_file == NULL) {
-        printf("Помилка відкриття конфігураційного файлу.\n");
+        printf("РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ РєРѕРЅС„С–РіСѓСЂР°С†С–Р№РЅРѕРіРѕ С„Р°Р№Р»Сѓ.\n");
         return;
     }
 
-    fprintf(config_file, "; Файл бази даних\n");
+    fprintf(config_file, "; Р¤Р°Р№Р» Р±Р°Р·Рё РґР°РЅРёС…\n");
     fprintf(config_file, "DB = %s\n", db_file);
-    fprintf(config_file, "; Ліцензійний ключ\n");
+    fprintf(config_file, "; Р›С–С†РµРЅР·С–Р№РЅРёР№ РєР»СЋС‡\n");
     fprintf(config_file, "KEY = %s\n", user_key);
 
     fclose(config_file);
 
-    printf("Конфігураційний файл успішно змінений.\n");
+    printf("РљРѕРЅС„С–РіСѓСЂР°С†С–Р№РЅРёР№ С„Р°Р№Р» СѓСЃРїС–С€РЅРѕ Р·РјС–РЅРµРЅРёР№.\n");
 }
 
 
 void modify_person(const char* db_file, const char* key) {
     FILE* file = fopen(db_file, "r+b");
     if (file == NULL) {
-        printf("Помилка відкриття файлу бази даних.\n");
+        printf("РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ С„Р°Р№Р»Сѓ Р±Р°Р·Рё РґР°РЅРёС….\n");
         return;
     }
 
     int id;
-    printf("Введіть ідентифікаційний номер запису, який бажаєте змінити: ");
+    printf("Р’РІРµРґС–С‚СЊ С–РґРµРЅС‚РёС„С–РєР°С†С–Р№РЅРёР№ РЅРѕРјРµСЂ Р·Р°РїРёСЃСѓ, СЏРєРёР№ Р±Р°Р¶Р°С”С‚Рµ Р·РјС–РЅРёС‚Рё: ");
     scanf("%d", &id);
 
-    // Переміщення покажчика файлу до відповідного запису
+    // РџРµСЂРµРјС–С‰РµРЅРЅСЏ РїРѕРєР°Р¶С‡РёРєР° С„Р°Р№Р»Сѓ РґРѕ РІС–РґРїРѕРІС–РґРЅРѕРіРѕ Р·Р°РїРёСЃСѓ
     fseek(file, (id - 1) * sizeof(Person), SEEK_SET);
 
     Person person;
     fread(&person, sizeof(Person), 1, file);
 
     if (strlen(person.name) == 0) {
-        printf("Запис з ідентифікаційним номером %d не знайдено.\n", id);
+        printf("Р—Р°РїРёСЃ Р· С–РґРµРЅС‚РёС„С–РєР°С†С–Р№РЅРёРј РЅРѕРјРµСЂРѕРј %d РЅРµ Р·РЅР°Р№РґРµРЅРѕ.\n", id);
         fclose(file);
         return;
     }
 
-    printf("Введіть нові дані для запису з ідентифікаційним номером %d:\n", id);
+    printf("Р’РІРµРґС–С‚СЊ РЅРѕРІС– РґР°РЅС– РґР»СЏ Р·Р°РїРёСЃСѓ Р· С–РґРµРЅС‚РёС„С–РєР°С†С–Р№РЅРёРј РЅРѕРјРµСЂРѕРј %d:\n", id);
 
-    // Зчитування нових значень полів від користувача
-    printf("Прізвище, ім'я та по батькові (через пробіл): ");
+    // Р—С‡РёС‚СѓРІР°РЅРЅСЏ РЅРѕРІРёС… Р·РЅР°С‡РµРЅСЊ РїРѕР»С–РІ РІС–Рґ РєРѕСЂРёСЃС‚СѓРІР°С‡Р°
+    printf("РџСЂС–Р·РІРёС‰Рµ, С–Рј'СЏ С‚Р° РїРѕ Р±Р°С‚СЊРєРѕРІС– (С‡РµСЂРµР· РїСЂРѕР±С–Р»): ");
     scanf(" %[^\n]s", person.name);
-    printf("Введіть посаду: ");
+    printf("Р’РІРµРґС–С‚СЊ РїРѕСЃР°РґСѓ: ");
     scanf(" %[^\n]s", person.position);
-    printf("Введіть дату прийняття на роботу (через пробіл): ");
+    printf("Р’РІРµРґС–С‚СЊ РґР°С‚Сѓ РїСЂРёР№РЅСЏС‚С‚СЏ РЅР° СЂРѕР±РѕС‚Сѓ (С‡РµСЂРµР· РїСЂРѕР±С–Р»): ");
     scanf("%d %d %d", &person.hire_date[0], &person.hire_date[1], &person.hire_date[2]);
-    printf("Введіть встановлену заробітну плату: ");
+    printf("Р’РІРµРґС–С‚СЊ РІСЃС‚Р°РЅРѕРІР»РµРЅСѓ Р·Р°СЂРѕР±С–С‚РЅСѓ РїР»Р°С‚Сѓ: ");
     scanf("%f", &person.salary);
 
-    // Переміщення покажчика файлу до поточної позиції запису
+    // РџРµСЂРµРјС–С‰РµРЅРЅСЏ РїРѕРєР°Р¶С‡РёРєР° С„Р°Р№Р»Сѓ РґРѕ РїРѕС‚РѕС‡РЅРѕС— РїРѕР·РёС†С–С— Р·Р°РїРёСЃСѓ
     fseek(file, -((long)sizeof(Person)), SEEK_CUR);
 
-    // Запис нових значень полів у файл
+    // Р—Р°РїРёСЃ РЅРѕРІРёС… Р·РЅР°С‡РµРЅСЊ РїРѕР»С–РІ Сѓ С„Р°Р№Р»
     fwrite(&person, sizeof(Person), 1, file);
 
     fclose(file);
 
-    printf("Запис з ідентифікаційним номером %d змінено успішно.\n", id);
+    printf("Р—Р°РїРёСЃ Р· С–РґРµРЅС‚РёС„С–РєР°С†С–Р№РЅРёРј РЅРѕРјРµСЂРѕРј %d Р·РјС–РЅРµРЅРѕ СѓСЃРїС–С€РЅРѕ.\n", id);
 }
