@@ -1,0 +1,2 @@
+DB = config.db
+KEY = 0302JJ1971
