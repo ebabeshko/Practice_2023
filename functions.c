@@ -1,12 +1,12 @@
-#include "functions.h"
+п»ї#include "functions.h"
 
 void config_check(const char* fname, char* bname, char* key) {
 	FILE* fp = fopen(fname, "r");
 	if (fp == NULL) {
-		printf("\n   Конфiгурацiйний файл не знайдено.\n   Конфiгурацiйний файл та нову базу даних створено.\n");
+		printf("\n   РљРѕРЅС„iРіСѓСЂР°С†iР№РЅРёР№ С„Р°Р№Р» РЅРµ Р·РЅР°Р№РґРµРЅРѕ.\n   РљРѕРЅС„iРіСѓСЂР°С†iР№РЅРёР№ С„Р°Р№Р» С‚Р° РЅРѕРІСѓ Р±Р°Р·Сѓ РґР°РЅРёС… СЃС‚РІРѕСЂРµРЅРѕ.\n");
 		strcpy(bname, "../Practice/new_base.dat");
 		keygen(fname, bname, key);
-		printf("   Новий лiцензiйний ключ: %s\n", key);
+		printf("   РќРѕРІРёР№ Р»iС†РµРЅР·iР№РЅРёР№ РєР»СЋС‡: %s\n", key);
 
 	}
 	else {
@@ -54,7 +54,7 @@ void keygen(const char* fname, const char* bname, char* key) {
 Employee* load_database(const char* bname) {
 	FILE* file = fopen(bname, "rb");
 	if (file == NULL) {
-		printf("   Помилка при вiдкриттi файлу!\n");
+		printf("   РџРѕРјРёР»РєР° РїСЂРё РІiРґРєСЂРёС‚С‚i С„Р°Р№Р»Сѓ!\n");
 		exit(1);
 	}
 	Employee* head = NULL;
@@ -77,25 +77,25 @@ Employee* load_database(const char* bname) {
 		current = newEmployee;
 	}
 	fclose(file);
-	printf("   Базу даних завантажено з файлу %s\n", bname);
+	printf("   Р‘Р°Р·Сѓ РґР°РЅРёС… Р·Р°РІР°РЅС‚Р°Р¶РµРЅРѕ Р· С„Р°Р№Р»Сѓ %s\n", bname);
 	return head;
 }
 
 void add_record(Employee** head) {
 	Employee* newEmployee = (Employee*)malloc(sizeof(Employee));
 	getchar();
-	printf("   Введiть ПiБ спiвробiтника: ");
+	printf("   Р’РІРµРґiС‚СЊ РџiР‘ СЃРїiРІСЂРѕР±iС‚РЅРёРєР°: ");
 	fgets(newEmployee->name, sizeof(newEmployee->name), stdin);
 	newEmployee->name[strcspn(newEmployee->name, "\n")] = '\0';
-	printf("   Введiть посаду спiвробiтника: ");
+	printf("   Р’РІРµРґiС‚СЊ РїРѕСЃР°РґСѓ СЃРїiРІСЂРѕР±iС‚РЅРёРєР°: ");
 	fgets(newEmployee->post, sizeof(newEmployee->post), stdin);
 	newEmployee->post[strcspn(newEmployee->post, "\n")] = '\0';
-	printf("   Введiть дату прийняття на роботу (формат: ДД ММ РРРР): ");
+	printf("   Р’РІРµРґiС‚СЊ РґР°С‚Сѓ РїСЂРёР№РЅСЏС‚С‚СЏ РЅР° СЂРѕР±РѕС‚Сѓ (С„РѕСЂРјР°С‚: Р”Р” РњРњ Р Р Р Р ): ");
 	scanf("%d %d %d", &newEmployee->hire_date[0], &newEmployee->hire_date[1],
 		&newEmployee->hire_date[2]);
-	printf("   Введiть заробiтну плату спiвробiтника: ");
+	printf("   Р’РІРµРґiС‚СЊ Р·Р°СЂРѕР±iС‚РЅСѓ РїР»Р°С‚Сѓ СЃРїiРІСЂРѕР±iС‚РЅРёРєР°: ");
 	scanf("%f", &newEmployee->salary);
-	// Очищення вхiдного буфера
+	// РћС‡РёС‰РµРЅРЅСЏ РІС…iРґРЅРѕРіРѕ Р±СѓС„РµСЂР°
 	getchar();
 	newEmployee->next = NULL;
 	if (*head == NULL) {
@@ -110,12 +110,12 @@ void add_record(Employee** head) {
 		newEmployee->id = current->id + 1;
 		current->next = newEmployee;
 	}
-	printf("   Запис успiшно додано!\n");
+	printf("   Р—Р°РїРёСЃ СѓСЃРїiС€РЅРѕ РґРѕРґР°РЅРѕ!\n");
 }
 
 
 
-// Функцiя для видалення запису
+// Р¤СѓРЅРєС†iСЏ РґР»СЏ РІРёРґР°Р»РµРЅРЅСЏ Р·Р°РїРёСЃСѓ
 void delete_record(Employee** head, int id) {
 	Employee* current = *head;
 	Employee* previous = NULL;
@@ -128,33 +128,33 @@ void delete_record(Employee** head, int id) {
 				previous->next = current->next;
 			}
 			free(current);
-			printf("   Запис з iдентифiкацiйним номером %d видалено!\n", id);
+			printf("   Р—Р°РїРёСЃ Р· iРґРµРЅС‚РёС„iРєР°С†iР№РЅРёРј РЅРѕРјРµСЂРѕРј %d РІРёРґР°Р»РµРЅРѕ!\n", id);
 			return;
 		}
 		previous = current;
 		current = current->next;
 	}
-	printf("   Запис з iдентифiкацiйним номером %d не знайдено!\n", id);
+	printf("   Р—Р°РїРёСЃ Р· iРґРµРЅС‚РёС„iРєР°С†iР№РЅРёРј РЅРѕРјРµСЂРѕРј %d РЅРµ Р·РЅР°Р№РґРµРЅРѕ!\n", id);
 }
 
 
 
-// Функцiя для перегляду всiх записiв
+// Р¤СѓРЅРєС†iСЏ РґР»СЏ РїРµСЂРµРіР»СЏРґСѓ РІСЃiС… Р·Р°РїРёСЃiРІ
 void display_records(Employee* head) {
 	if (head == NULL) {
-		printf("   База даних порожня!\n");
+		printf("   Р‘Р°Р·Р° РґР°РЅРёС… РїРѕСЂРѕР¶РЅСЏ!\n");
 		return;
 	}
 	Employee* current = head;
-	printf("   Список записiв:\n");
+	printf("   РЎРїРёСЃРѕРє Р·Р°РїРёСЃiРІ:\n");
 	while (current != NULL) {
 		printf("  --------------------------\n");
 		printf("   ID: %d\n", current->id);
-		printf("   Прiзвище, iм'я та по батьковi: %s\n", current->name);
-		printf("   Посада: %s\n", current->post);
-		printf("   Дата прийняття на роботу: %d %d %d\n", current->hire_date[0],
+		printf("   РџСЂiР·РІРёС‰Рµ, iРј'СЏ С‚Р° РїРѕ Р±Р°С‚СЊРєРѕРІi: %s\n", current->name);
+		printf("   РџРѕСЃР°РґР°: %s\n", current->post);
+		printf("   Р”Р°С‚Р° РїСЂРёР№РЅСЏС‚С‚СЏ РЅР° СЂРѕР±РѕС‚Сѓ: %d %d %d\n", current->hire_date[0],
 			current->hire_date[1], current->hire_date[2]);
-		printf("   Заробiтна плата: %.2f\n", current->salary);
+		printf("   Р—Р°СЂРѕР±iС‚РЅР° РїР»Р°С‚Р°: %.2f\n", current->salary);
 		printf("  --------------------------\n");
 		current = current->next;
 	}
@@ -162,39 +162,39 @@ void display_records(Employee* head) {
 
 
 
-// Функцiя для змiни запису
+// Р¤СѓРЅРєС†iСЏ РґР»СЏ Р·РјiРЅРё Р·Р°РїРёСЃСѓ
 void modify_record(Employee* head, int id) {
 	Employee* current = head;
 	while (current != NULL) {
 		if (current->id == id) {
 			getchar();
-			printf("   Введiть нове прiзвище, iм'я та по батьковi спiвробiтника: ");
+			printf("   Р’РІРµРґiС‚СЊ РЅРѕРІРµ РїСЂiР·РІРёС‰Рµ, iРј'СЏ С‚Р° РїРѕ Р±Р°С‚СЊРєРѕРІi СЃРїiРІСЂРѕР±iС‚РЅРёРєР°: ");
 			fgets(current->name, sizeof(current->name), stdin);
 			current->name[strcspn(current->name, "\n")] = '\0';
-			printf("   Введiть нову посаду спiвробiтника: ");
+			printf("   Р’РІРµРґiС‚СЊ РЅРѕРІСѓ РїРѕСЃР°РґСѓ СЃРїiРІСЂРѕР±iС‚РЅРёРєР°: ");
 			fgets(current->post, sizeof(current->post), stdin);
 			current->post[strcspn(current->post, "\n")] = '\0';
-			printf("   Введiть нову дату прийняття на роботу (формат: ДД ММ РРРР): ");
+			printf("   Р’РІРµРґiС‚СЊ РЅРѕРІСѓ РґР°С‚Сѓ РїСЂРёР№РЅСЏС‚С‚СЏ РЅР° СЂРѕР±РѕС‚Сѓ (С„РѕСЂРјР°С‚: Р”Р” РњРњ Р Р Р Р ): ");
 			scanf("%d %d %d", &current->hire_date[0], &current->hire_date[1],
 				&current->hire_date[2]);
-			printf("   Введiть нову заробiтну плату спiвробiтника: ");
+			printf("   Р’РІРµРґiС‚СЊ РЅРѕРІСѓ Р·Р°СЂРѕР±iС‚РЅСѓ РїР»Р°С‚Сѓ СЃРїiРІСЂРѕР±iС‚РЅРёРєР°: ");
 			scanf("%f", &current->salary);
-			printf("   Запис з iдентифiкацiйним номером %d змiнено!\n", id);
+			printf("   Р—Р°РїРёСЃ Р· iРґРµРЅС‚РёС„iРєР°С†iР№РЅРёРј РЅРѕРјРµСЂРѕРј %d Р·РјiРЅРµРЅРѕ!\n", id);
 
 			return;
 		}
 		current = current->next;
 	}
-	printf("   Запис з iдентифiкацiйним номером %d не знайдено!\n", id);
+	printf("   Р—Р°РїРёСЃ Р· iРґРµРЅС‚РёС„iРєР°С†iР№РЅРёРј РЅРѕРјРµСЂРѕРј %d РЅРµ Р·РЅР°Р№РґРµРЅРѕ!\n", id);
 }
 
 
 
-// Збереження бази даних
+// Р—Р±РµСЂРµР¶РµРЅРЅСЏ Р±Р°Р·Рё РґР°РЅРёС…
 void save_database(Employee* head, const char* fname) {
 	FILE* file = fopen(fname, "wb");
 	if (file == NULL) {
-		printf("   Помилка при вiдкриттi файлу!\n");
+		printf("   РџРѕРјРёР»РєР° РїСЂРё РІiРґРєСЂРёС‚С‚i С„Р°Р№Р»Сѓ!\n");
 		return;
 	}
 	Employee* current = head;
@@ -203,11 +203,11 @@ void save_database(Employee* head, const char* fname) {
 		current = current->next;
 	}
 	fclose(file);
-	printf("   Базу даних збережено!\n");
+	printf("   Р‘Р°Р·Сѓ РґР°РЅРёС… Р·Р±РµСЂРµР¶РµРЅРѕ!\n");
 }
 
 
-// Звiльнення пам'ятi, використаної пiд зв'язний список
+// Р—РІiР»СЊРЅРµРЅРЅСЏ РїР°Рј'СЏС‚i, РІРёРєРѕСЂРёСЃС‚Р°РЅРѕС— РїiРґ Р·РІ'СЏР·РЅРёР№ СЃРїРёСЃРѕРє
 void free_memory(Employee* head) {
 	Employee* current = head;
 	Employee* next;
@@ -221,7 +221,7 @@ void free_memory(Employee* head) {
 
 void export_cvs(Employee* head) {
 	char fname[50];
-	printf("   Введiть назву файлу експорту (без розширення): ");
+	printf("   Р’РІРµРґiС‚СЊ РЅР°Р·РІСѓ С„Р°Р№Р»Сѓ РµРєСЃРїРѕСЂС‚Сѓ (Р±РµР· СЂРѕР·С€РёСЂРµРЅРЅСЏ): ");
 	scanf("%49s", fname);
 
 	char filepath[100];
@@ -229,7 +229,7 @@ void export_cvs(Employee* head) {
 
 	FILE* file = fopen(filepath, "w");
 	if (file == NULL) {
-		printf("   Помилка при вiдкриттi файлу %s\n", filepath);
+		printf("   РџРѕРјРёР»РєР° РїСЂРё РІiРґРєСЂРёС‚С‚i С„Р°Р№Р»Сѓ %s\n", filepath);
 		return;
 	}
 
@@ -241,12 +241,12 @@ void export_cvs(Employee* head) {
 	}
 
 	fclose(file);
-	printf("   Базу даних збережено у файлi %s (CSV формат)\n", filepath);
+	printf("   Р‘Р°Р·Сѓ РґР°РЅРёС… Р·Р±РµСЂРµР¶РµРЅРѕ Сѓ С„Р°Р№Р»i %s (CSV С„РѕСЂРјР°С‚)\n", filepath);
 }
 
 void export_dat(Employee* head) {
 	char fname[50];
-	printf("   Введiть назву файлу експорту (без розширення): ");
+	printf("   Р’РІРµРґiС‚СЊ РЅР°Р·РІСѓ С„Р°Р№Р»Сѓ РµРєСЃРїРѕСЂС‚Сѓ (Р±РµР· СЂРѕР·С€РёСЂРµРЅРЅСЏ): ");
 	scanf("%49s", fname);
 
 	char filepath[100];
@@ -254,7 +254,7 @@ void export_dat(Employee* head) {
 
 	FILE* file = fopen(filepath, "wb");
 	if (file == NULL) {
-		printf("   Помилка при вiдкриттi файлу %s\n", filepath);
+		printf("   РџРѕРјРёР»РєР° РїСЂРё РІiРґРєСЂРёС‚С‚i С„Р°Р№Р»Сѓ %s\n", filepath);
 		return;
 	}
 
@@ -265,12 +265,12 @@ void export_dat(Employee* head) {
 	}
 
 	fclose(file);
-	printf("   Базу даних збережено у файлi %s (DAT формат)\n", filepath);
+	printf("   Р‘Р°Р·Сѓ РґР°РЅРёС… Р·Р±РµСЂРµР¶РµРЅРѕ Сѓ С„Р°Р№Р»i %s (DAT С„РѕСЂРјР°С‚)\n", filepath);
 }
 
 
 void filter_post_date(Employee* head, const char* post, int day, int month, int year) {
-	printf("   Спiвробiтники з посадою \"%s\", прийнятi пiсля %02d %02d %04d:\n", post, day, month, year);
+	printf("   РЎРїiРІСЂРѕР±iС‚РЅРёРєРё Р· РїРѕСЃР°РґРѕСЋ \"%s\", РїСЂРёР№РЅСЏС‚i РїiСЃР»СЏ %02d %02d %04d:\n", post, day, month, year);
 
 	Employee* current = head;
 	int foundEmployees = 0;
@@ -281,10 +281,10 @@ void filter_post_date(Employee* head, const char* post, int day, int month, int 
 				(current->hire_date[2] == year && current->hire_date[1] > month) ||
 				(current->hire_date[2] == year && current->hire_date[1] == month && current->hire_date[0] > day))) {
 			printf("   ID: %d\n", current->id);
-			printf("   ПiБ: %s\n", current->name);
-			printf("   Посада: %s\n", current->post);
-			printf("   Дата прийняття на роботу: %02d %02d %04d\n", current->hire_date[0], current->hire_date[1], current->hire_date[2]);
-			printf("   Заробiтна плата: %.2f\n", current->salary);
+			printf("   РџiР‘: %s\n", current->name);
+			printf("   РџРѕСЃР°РґР°: %s\n", current->post);
+			printf("   Р”Р°С‚Р° РїСЂРёР№РЅСЏС‚С‚СЏ РЅР° СЂРѕР±РѕС‚Сѓ: %02d %02d %04d\n", current->hire_date[0], current->hire_date[1], current->hire_date[2]);
+			printf("   Р—Р°СЂРѕР±iС‚РЅР° РїР»Р°С‚Р°: %.2f\n", current->salary);
 			printf("\n");
 			foundEmployees++;
 		}
@@ -292,13 +292,13 @@ void filter_post_date(Employee* head, const char* post, int day, int month, int 
 	}
 
 	if (foundEmployees == 0) {
-		printf("   Спiвробiтники з посадою \"%s\", прийнятi пiсля %02d %02d %04d не знайденi.\n", post, day, month, year);
+		printf("   РЎРїiРІСЂРѕР±iС‚РЅРёРєРё Р· РїРѕСЃР°РґРѕСЋ \"%s\", РїСЂРёР№РЅСЏС‚i РїiСЃР»СЏ %02d %02d %04d РЅРµ Р·РЅР°Р№РґРµРЅi.\n", post, day, month, year);
 	}
 }
 
 
 void filter_salary(Employee* head, float salary_threshold) {
-	printf("   Спiвробiтники заробiтна плата яких бiльше %.2f:\n", salary_threshold);
+	printf("   РЎРїiРІСЂРѕР±iС‚РЅРёРєРё Р·Р°СЂРѕР±iС‚РЅР° РїР»Р°С‚Р° СЏРєРёС… Р±iР»СЊС€Рµ %.2f:\n", salary_threshold);
 
 	Employee* current = head;
 	int foundEmployees = 0;
@@ -306,10 +306,10 @@ void filter_salary(Employee* head, float salary_threshold) {
 	while (current != NULL) {
 		if (current->salary > salary_threshold) {
 			printf("   ID: %d\n", current->id);
-			printf("   ПiБ: %s\n", current->name);
-			printf("   Посада: %s\n", current->post);
-			printf("   Дата прийняття на роботу: %02d %02d %04d\n", current->hire_date[0], current->hire_date[1], current->hire_date[2]);
-			printf("   Заробiтна плата: %.2f\n", current->salary);
+			printf("   РџiР‘: %s\n", current->name);
+			printf("   РџРѕСЃР°РґР°: %s\n", current->post);
+			printf("   Р”Р°С‚Р° РїСЂРёР№РЅСЏС‚С‚СЏ РЅР° СЂРѕР±РѕС‚Сѓ: %02d %02d %04d\n", current->hire_date[0], current->hire_date[1], current->hire_date[2]);
+			printf("   Р—Р°СЂРѕР±iС‚РЅР° РїР»Р°С‚Р°: %.2f\n", current->salary);
 			printf("\n");
 			foundEmployees++;
 		}
@@ -317,6 +317,6 @@ void filter_salary(Employee* head, float salary_threshold) {
 	}
 
 	if (foundEmployees == 0) {
-		printf("   Спiвробiтники заробiтна плата яких бiльше %.2f не знайденi.\n", salary_threshold);
+		printf("   РЎРїiРІСЂРѕР±iС‚РЅРёРєРё Р·Р°СЂРѕР±iС‚РЅР° РїР»Р°С‚Р° СЏРєРёС… Р±iР»СЊС€Рµ %.2f РЅРµ Р·РЅР°Р№РґРµРЅi.\n", salary_threshold);
 	}
 }

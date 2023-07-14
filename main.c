@@ -1,3 +1,5 @@
+п»ї
+
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <string.h>
@@ -8,7 +10,7 @@
 
 
 int main() {
-	setlocale(LC_ALL, "ukr");
+	setlocale(LC_CTYPE, "ukr");
 	Employee* head = NULL;
 	int choice, id;
 	char c[11];
@@ -19,12 +21,12 @@ int main() {
 	config_check(config_file, db_file, license_key);
 
 
-	printf("\n   Введiть лiцензiйний ключ: ");
+	printf("\n   Р’РІРµРґiС‚СЊ Р»iС†РµРЅР·iР№РЅРёР№ РєР»СЋС‡: ");
 	char input[11];
 	scanf("%10s", input);
 	int checker = 1;
 	if (strcmp(input, license_key) != 0) {
-		printf("   Лiцензiйний ключ введено невiрно! Функцiонал буде обмежено!\n");
+		printf("   Р›iС†РµРЅР·iР№РЅРёР№ РєР»СЋС‡ РІРІРµРґРµРЅРѕ РЅРµРІiСЂРЅРѕ! Р¤СѓРЅРєС†iРѕРЅР°Р» Р±СѓРґРµ РѕР±РјРµР¶РµРЅРѕ!\n");
 		checker = 0;
 	}
 
@@ -32,24 +34,24 @@ int main() {
 
 	while (1) {
 
-		printf("\n   Меню:\n");
-		printf("   1. Додати запис\n");
-		printf("   2. Видалити запис\n");
-		printf("   3. Переглянути записи\n");
-		printf("   4. Змiнити запис\n");
-		printf("   5. Зберегти базу даних\n");
-		printf("   6. Вийти\n");
+		printf("\n   РњРµРЅСЋ:\n");
+		printf("   1. Р”РѕРґР°С‚Рё Р·Р°РїРёСЃ\n");
+		printf("   2. Р’РёРґР°Р»РёС‚Рё Р·Р°РїРёСЃ\n");
+		printf("   3. РџРµСЂРµРіР»СЏРЅСѓС‚Рё Р·Р°РїРёСЃРё\n");
+		printf("   4. Р—РјiРЅРёС‚Рё Р·Р°РїРёСЃ\n");
+		printf("   5. Р—Р±РµСЂРµРіС‚Рё Р±Р°Р·Сѓ РґР°РЅРёС…\n");
+		printf("   6. Р’РёР№С‚Рё\n");
 
 		if (checker == 1) {
-			printf("   Спецiальнi функцiї:\n");
-			printf("   7. Вивести список спiвробiтникiв введенної посади прийнятих пiсля введенної дати\n");
-			printf("   8. Вивести список спiвробiтникiв заробiтня плата яких вище заданої\n");
-			printf("   Додатковi функцiї:\n");
-			printf("   9. Зберегти у файлi .dat\n");
-			printf("   10. Зберегти у файлi .cvs\n");
+			printf("   РЎРїРµС†iР°Р»СЊРЅi С„СѓРЅРєС†iС—:\n");
+			printf("   7. Р’РёРІРµСЃС‚Рё СЃРїРёСЃРѕРє СЃРїiРІСЂРѕР±iС‚РЅРёРєiРІ РІРІРµРґРµРЅРЅРѕС— РїРѕСЃР°РґРё РїСЂРёР№РЅСЏС‚РёС… РїiСЃР»СЏ РІРІРµРґРµРЅРЅРѕС— РґР°С‚Рё\n");
+			printf("   8. Р’РёРІРµСЃС‚Рё СЃРїРёСЃРѕРє СЃРїiРІСЂРѕР±iС‚РЅРёРєiРІ Р·Р°СЂРѕР±iС‚РЅСЏ РїР»Р°С‚Р° СЏРєРёС… РІРёС‰Рµ Р·Р°РґР°РЅРѕС—\n");
+			printf("   Р”РѕРґР°С‚РєРѕРІi С„СѓРЅРєС†iС—:\n");
+			printf("   9. Р—Р±РµСЂРµРіС‚Рё Сѓ С„Р°Р№Р»i .dat\n");
+			printf("   10. Р—Р±РµСЂРµРіС‚Рё Сѓ С„Р°Р№Р»i .cvs\n");
 		}
 
-		printf("\n   Ваш вибiр: ");
+		printf("\n   Р’Р°С€ РІРёР±iСЂ: ");
 		scanf("%d", &choice);
 		printf("\n");
 
@@ -58,7 +60,7 @@ int main() {
 			add_record(&head);
 			break;
 		case 2:
-			printf("   Введiть iдентифiкацiйний номер запису для видалення: ");
+			printf("   Р’РІРµРґiС‚СЊ iРґРµРЅС‚РёС„iРєР°С†iР№РЅРёР№ РЅРѕРјРµСЂ Р·Р°РїРёСЃСѓ РґР»СЏ РІРёРґР°Р»РµРЅРЅСЏ: ");
 			scanf("%d", &id);
 			delete_record(&head, id);
 			getchar();
@@ -67,7 +69,7 @@ int main() {
 			display_records(head);
 			break;
 		case 4:
-			printf("   Введiть iдентифiкацiйний номер запису для змiни: ");
+			printf("   Р’РІРµРґiС‚СЊ iРґРµРЅС‚РёС„iРєР°С†iР№РЅРёР№ РЅРѕРјРµСЂ Р·Р°РїРёСЃСѓ РґР»СЏ Р·РјiРЅРё: ");
 			scanf("%d", &id);
 			modify_record(head, id);
 			getchar();
@@ -81,12 +83,12 @@ int main() {
 			return 0; }
 			  if (checker = 1) {
 		case 7:
-				printf("Введiть назву посади: ");
+				printf("Р’РІРµРґiС‚СЊ РЅР°Р·РІСѓ РїРѕСЃР°РґРё: ");
 				char post[50];
 				getchar();
 				scanf("%49s", post);
 
-				printf("Введiть дату: ");
+				printf("Р’РІРµРґiС‚СЊ РґР°С‚Сѓ: ");
 				int year, month, day;
 				getchar();
 				scanf("%d %d %d", &day, &month, &year);
@@ -94,7 +96,7 @@ int main() {
 				filter_post_date(head, post, day, month, year);
 				break;
 		case 8:
-				printf("Введiть заробiтню плату: ");
+				printf("Р’РІРµРґiС‚СЊ Р·Р°СЂРѕР±iС‚РЅСЋ РїР»Р°С‚Сѓ: ");
 				float salary_fil;
 				scanf("%f", &salary_fil);
 				filter_salary(head, salary_fil);
@@ -106,7 +108,7 @@ int main() {
 				 break;
 			  }
 		default:
-				printf("   Невiрний вибiр! Спробуйте ще раз.\n");
+				printf("   РќРµРІiСЂРЅРёР№ РІРёР±iСЂ! РЎРїСЂРѕР±СѓР№С‚Рµ С‰Рµ СЂР°Р·.\n");
 			break;
 		}
 	}
