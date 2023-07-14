@@ -1,17 +1,24 @@
-// practise.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
-#define _CRT_SECURE_NO_WARNINGS  
+/**
+* @file practise *
+* @author Lichakov V. O., гр. 515b, варіант 7 *
+* @date *
+* @brief Навчальна практика*
+* База даних маршрутів потягів *
+*/
+
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
 #include "windows.h"
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
+#include "cstdlib"
 
-typedef struct node {
+typedef struct {
 	char trainNumber[20];
-	char departureStation[50];
-	char destinationStation[50];
+	char departureStation[25];
+	char destinationStation[25];
 	int departureTime[2]; // [0] - час, [1] - минуты
 	struct node* next;// вказівник на наступний вузол
 } trains;
@@ -47,6 +54,43 @@ void displayTrains(FILE* file) {
 	}
 }
 
+void deleteTrain(FILE* file) {
+	trains train;
+	char trainNumber[20];
+	int found = 0;
+
+	printf("Enter the train number to delete: ");
+	scanf("%i", trainNumber);
+
+	FILE* tempFile = fopen("temp.txt", "w+b");
+	if (tempFile == NULL) {
+		printf("Error creating temporary file.\n");
+		return;
+	}
+
+	while (fread(&train, sizeof(trains), 1, file) == 1) {
+		if (train.trainNumber != trainNumber) {
+			fwrite(&train, sizeof(trains), 1, tempFile);
+		}
+		else {
+			found = 1;
+		}
+	}
+
+	fclose(file);
+	fclose(tempFile);
+
+	remove("data.txt");
+	rename("temp.txt", "data.txt");
+
+	if (found) {
+		printf("Train deleted successfully!\n");
+	}
+	else {
+		printf("Train not found.\n");
+	}
+}
+
 int main()
 {
 	FILE* file;
@@ -62,13 +106,15 @@ int main()
 			return 1;
 		}
 	}
-	
+
 	int choice;
 	while (1) {
 		printf("Menu:\n");
 		printf("1. Add Train\n");
 		printf("2. Display Trains\n");
-		printf("3. Exit\n");
+		printf("3. Change trains\n");
+		printf("4. Delete trains\n");
+		printf("5. Exit\n");
 		printf("Enter your choice: ");
 		scanf("%d", &choice);
 
@@ -79,7 +125,10 @@ int main()
 		case 2:
 			displayTrains(file);
 			break;
-		case 3:
+		case 4:
+			deleteTrain(file);
+			break;
+		case 5:
 			fclose(file);
 			return 0;
 		default:
