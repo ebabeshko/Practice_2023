@@ -1,5 +1,6 @@
 ﻿#include "functions.h"
 
+//функція перевірки наявності конфігураційного файлу
 void config_check(const char* fname, char* bname, char* key) {
 	FILE* fp = fopen(fname, "r");
 	if (fp == NULL) {
@@ -25,17 +26,17 @@ void config_check(const char* fname, char* bname, char* key) {
 }
 
 
-
+//функція генерації ліцензійного ключа
 void keygen(const char* fname, const char* bname, char* key) {
 	const char* characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-	int charactersCount = 36;
+	int characters_count = 36;
 	char gkey[11];
 
 	srand(time(NULL));
 
 	for (int i = 0; i < 10; i++) {
-		int randomIndex = rand() % charactersCount;
-		gkey[i] = characters[randomIndex];
+		int random_index = rand() % characters_count;
+		gkey[i] = characters[random_index];
 	}
 
 	gkey[10] = '\0';
@@ -50,7 +51,7 @@ void keygen(const char* fname, const char* bname, char* key) {
 }
 
 
-
+//функція завантаження бази даних з файлу
 Employee* load_database(const char* bname) {
 	FILE* file = fopen(bname, "rb");
 	if (file == NULL) {
@@ -81,6 +82,7 @@ Employee* load_database(const char* bname) {
 	return head;
 }
 
+//функція додавання нового запису
 void add_record(Employee** head) {
 	Employee* newEmployee = (Employee*)malloc(sizeof(Employee));
 	getchar();
@@ -218,7 +220,7 @@ void free_memory(Employee* head) {
 	}
 }
 
-
+//функція збереження бази даних в файл .cvs
 void export_cvs(Employee* head) {
 	char fname[50];
 	printf("   Введiть назву файлу експорту (без розширення): ");
@@ -241,9 +243,10 @@ void export_cvs(Employee* head) {
 	}
 
 	fclose(file);
-	printf("   Базу даних збережено у файлi %s (CSV формат)\n", filepath);
+	printf("   Базу даних збережено у файлi %s\n", filepath);
 }
 
+//функція збереження бази даних в файл .dat
 void export_dat(Employee* head) {
 	char fname[50];
 	printf("   Введiть назву файлу експорту (без розширення): ");
@@ -265,15 +268,15 @@ void export_dat(Employee* head) {
 	}
 
 	fclose(file);
-	printf("   Базу даних збережено у файлi %s (DAT формат)\n", filepath);
+	printf("   Базу даних збережено у файлi %s\n", filepath);
 }
 
-
+//функція фільтрування співробітників за посадою і датою прийняття на роботу
 void filter_post_date(Employee* head, const char* post, int day, int month, int year) {
 	printf("   Спiвробiтники з посадою \"%s\", прийнятi пiсля %02d %02d %04d:\n", post, day, month, year);
 
 	Employee* current = head;
-	int foundEmployees = 0;
+	int found_employees = 0;
 
 	while (current != NULL) {
 		if (strcmp(current->post, post) == 0 &&
@@ -286,22 +289,22 @@ void filter_post_date(Employee* head, const char* post, int day, int month, int 
 			printf("   Дата прийняття на роботу: %02d %02d %04d\n", current->hire_date[0], current->hire_date[1], current->hire_date[2]);
 			printf("   Заробiтна плата: %.2f\n", current->salary);
 			printf("\n");
-			foundEmployees++;
+			found_employees++;
 		}
 		current = current->next;
 	}
 
-	if (foundEmployees == 0) {
+	if (found_employees == 0) {
 		printf("   Спiвробiтники з посадою \"%s\", прийнятi пiсля %02d %02d %04d не знайденi.\n", post, day, month, year);
 	}
 }
 
-
+//функція фільтрування працівників за введеною зарплатою
 void filter_salary(Employee* head, float salary_threshold) {
 	printf("   Спiвробiтники заробiтна плата яких бiльше %.2f:\n", salary_threshold);
 
 	Employee* current = head;
-	int foundEmployees = 0;
+	int found_employees = 0;
 
 	while (current != NULL) {
 		if (current->salary > salary_threshold) {
@@ -311,12 +314,12 @@ void filter_salary(Employee* head, float salary_threshold) {
 			printf("   Дата прийняття на роботу: %02d %02d %04d\n", current->hire_date[0], current->hire_date[1], current->hire_date[2]);
 			printf("   Заробiтна плата: %.2f\n", current->salary);
 			printf("\n");
-			foundEmployees++;
+			found_employees++;
 		}
 		current = current->next;
 	}
 
-	if (foundEmployees == 0) {
+	if (found_employees == 0) {
 		printf("   Спiвробiтники заробiтна плата яких бiльше %.2f не знайденi.\n", salary_threshold);
 	}
 }

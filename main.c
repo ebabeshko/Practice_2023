@@ -43,9 +43,11 @@ int main() {
 		printf("   6. Вийти\n");
 
 		if (checker == 1) {
+			printf("\n");
 			printf("   Спецiальнi функцiї:\n");
 			printf("   7. Вивести список спiвробiтникiв введенної посади прийнятих пiсля введенної дати\n");
 			printf("   8. Вивести список спiвробiтникiв заробiтня плата яких вище заданої\n");
+			printf("\n");
 			printf("   Додатковi функцiї:\n");
 			printf("   9. Зберегти у файлi .dat\n");
 			printf("   10. Зберегти у файлi .cvs\n");
@@ -83,32 +85,32 @@ int main() {
 			return 0; }
 			  if (checker = 1) {
 		case 7:
-				printf("Введiть назву посади: ");
-				char post[50];
-				getchar();
-				scanf("%49s", post);
+			printf("Введiть назву посади: ");
+			char post[50];
+			getchar();
+			scanf("%49s", post);
 
-				printf("Введiть дату: ");
-				int year, month, day;
-				getchar();
-				scanf("%d %d %d", &day, &month, &year);
+			printf("Введiть дату: ");
+			int year, month, day;
+			getchar();
+			scanf("%d %d %d", &day, &month, &year);
 
-				filter_post_date(head, post, day, month, year);
-				break;
+			filter_post_date(head, post, day, month, year);
+			break;
 		case 8:
-				printf("Введiть заробiтню плату: ");
-				float salary_fil;
-				scanf("%f", &salary_fil);
-				filter_salary(head, salary_fil);
-				break;
+			printf("Введiть заробiтню плату: ");
+			float salary_fil;
+			scanf("%f", &salary_fil);
+			filter_salary(head, salary_fil);
+			break;
 
 		case 9: export_dat(head);
-				break;
+			break;
 		case 10: export_cvs(head);
-				 break;
+			break;
 			  }
 		default:
-				printf("   Невiрний вибiр! Спробуйте ще раз.\n");
+			printf("   Невiрний вибiр! Спробуйте ще раз.\n");
 			break;
 		}
 	}
