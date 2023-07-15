@@ -1,0 +1,2 @@
+DB = database.db
+KEY = secret_key
