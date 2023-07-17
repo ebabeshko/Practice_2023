@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GtaTestDurations xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Executable>C:\Users\Danil\source\repos\summer_practise_zaychenko\x64\Debug\summer_practise_zaychenko_gtest.exe</Executable>
+  <TestDurations>
+    <TestDuration Test="AddRecordTest.AddsRecordToDatabase" Duration="2" />
+    <TestDuration Test="DeleteRecordTest.DeletesExistingRecord" Duration="1" />
+    <TestDuration Test="DisplayRecordsTest.DisplaysNonDeletedRecords" Duration="2" />
+    <TestDuration Test="SaveConfigTest.SaveToFile" Duration="2" />
+    <TestDuration Test="InitializeConfigTest.Initialize" Duration="1" />
+    <TestDuration Test="LoadDatabaseTest.LoadNonExistingFile" Duration="1" />
+  </TestDurations>
+</GtaTestDurations>

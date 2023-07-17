@@ -1,0 +1,10 @@
+﻿  functions.c
+C:\Users\Danil\source\repos\summer_practise_zaychenko\summer_practise_zaychenko\functions.c(42,8): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Danil\source\repos\summer_practise_zaychenko\summer_practise_zaychenko\functions.c(231,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  main.c
+C:\Users\Danil\source\repos\summer_practise_zaychenko\summer_practise_zaychenko\main.c(112,37): warning C4047: 'function': 'const char *' differs in levels of indirection from 'int'
+C:\Users\Danil\source\repos\summer_practise_zaychenko\summer_practise_zaychenko\main.c(112,31): warning C4024: 'saveDatabase': different types for formal and actual parameter 3
+C:\Users\Danil\source\repos\summer_practise_zaychenko\summer_practise_zaychenko\main.c(112,45): warning C4020: 'saveDatabase': too many actual parameters
+C:\Users\Danil\source\repos\summer_practise_zaychenko\summer_practise_zaychenko\main.c(33,7): warning C4101: 'license_key': unreferenced local variable
+  Generating Code...
+  summer_practise_zaychenko.vcxproj -> C:\Users\Danil\source\repos\summer_practise_zaychenko\x64\Debug\summer_practise_zaychenko.exe
