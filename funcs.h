@@ -12,15 +12,15 @@
 #include <locale.h>
 #include <ctype.h>
 
-PUBLIC void fill(const char* CurfileName);
-PUBLIC void output(const char* CurfileName);
-PUBLIC void del(const char* CurfileName);
-PUBLIC void edit(const char* CurfileName);
-PUBLIC void rating_search(const char* CurfileName);
-PUBLIC void annual_turnover(const char* CurfileName);
+PUBLIC void fill(const char* Curname);
+PUBLIC void output(const char* Curname);
+PUBLIC void del(const char* Curname);
+PUBLIC void edit(const char* Curname);
+PUBLIC void rating_search(const char* Curname);
+PUBLIC void annual_turnover(const char* Curname);
 
 PUBLIC bool valid();
-PUBLIC void file_change_name(const char* CurfileName);
+PUBLIC void file_change_name(const char* Curname);
 PUBLIC void generation_key();
-PUBLIC void CSV(const char* CurfileName);
+PUBLIC void CSV(const char* Curname);
 #endif
