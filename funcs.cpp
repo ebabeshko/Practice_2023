@@ -1,9 +1,9 @@
 #include "funcs.h"
 struct client_info {
-    char name[MAX+1];           // прізвище та ім’я (в рядку через пробіл)
-    char email[MAX+1];          // адреса e-mail (рядок)
-    int rating;               // рейтинг (ціле число)
-    float annual_turnove;    // річний оборот за клієнтом (число з плаваючою точкою)
+    char name[MAX+1];           // РїСЂС–Р·РІРёС‰Рµ С‚Р° С–РјвЂ™СЏ (РІ СЂСЏРґРєСѓ С‡РµСЂРµР· РїСЂРѕР±С–Р»)
+    char email[MAX+1];          // Р°РґСЂРµСЃР° e-mail (СЂСЏРґРѕРє)
+    int rating;               // СЂРµР№С‚РёРЅРі (С†С–Р»Рµ С‡РёСЃР»Рѕ)
+    float annual_turnove;    // СЂС–С‡РЅРёР№ РѕР±РѕСЂРѕС‚ Р·Р° РєР»С–С”РЅС‚РѕРј (С‡РёСЃР»Рѕ Р· РїР»Р°РІР°СЋС‡РѕСЋ С‚РѕС‡РєРѕСЋ)
     struct client_info* next;
 };
 
@@ -11,40 +11,40 @@ struct client_info* first = NULL;
 
 int code_num = 0;
 
-PUBLIC void fill(const char* CurfileName) {
+PUBLIC void fill(const char* Curname) {
     struct client_info* new_client = (struct client_info*)malloc(sizeof(struct client_info));
     if (new_client == NULL) {
-        printf("Помилка виділення пам'яті.\n");
+        printf("РџРѕРјРёР»РєР° РІРёРґС–Р»РµРЅРЅСЏ РїР°Рј'СЏС‚С–.\n");
         return;
     }
 
-    FILE* f_my = fopen(CurfileName, "a"); 
+    FILE* f_my = fopen(Curname, "a");
     if (f_my == NULL) {
-        printf("Помилка відкриття файлу.\n");
+        printf("РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ С„Р°Р№Р»Сѓ.\n");
         free(new_client);
         return;
     }
 
     if (code_num == MAX) {
-        printf("База заповнена, додавання неможливе.\n");
+        printf("Р‘Р°Р·Р° Р·Р°РїРѕРІРЅРµРЅР°, РґРѕРґР°РІР°РЅРЅСЏ РЅРµРјРѕР¶Р»РёРІРµ.\n");
         fclose(f_my);
         free(new_client);
         return;
     }
 
     while (getchar() != '\n');
-    printf("Введіть прізвище та ім’я клієнта: ");
+    printf("Р’РІРµРґС–С‚СЊ РїСЂС–Р·РІРёС‰Рµ С‚Р° С–РјвЂ™СЏ РєР»С–С”РЅС‚Р°: ");
     fgets(new_client->name, MAX+1, stdin);
     new_client->name[strcspn(new_client->name, "\n")] = '\0';
 
-    printf("Введіть e-mail клієнта: ");
+    printf("Р’РІРµРґС–С‚СЊ e-mail РєР»С–С”РЅС‚Р°: ");
     fgets(new_client->email, MAX+1, stdin);
     new_client->email[strcspn(new_client->email, "\n")] = '\0';
 
-    printf("Введіть рейтинг клієнта: ");
+    printf("Р’РІРµРґС–С‚СЊ СЂРµР№С‚РёРЅРі РєР»С–С”РЅС‚Р°: ");
     while (1) {
         if (scanf("%d", &new_client->rating) != 1 || new_client->rating < 0) {
-            printf("Помилка: недопустимий рейтинг. Введіть рейтинг клієнта ще раз: ");
+            printf("РџРѕРјРёР»РєР°: РЅРµРґРѕРїСѓСЃС‚РёРјРёР№ СЂРµР№С‚РёРЅРі. Р’РІРµРґС–С‚СЊ СЂРµР№С‚РёРЅРі РєР»С–С”РЅС‚Р° С‰Рµ СЂР°Р·: ");
             while (getchar() != '\n');
         }
         else {
@@ -53,10 +53,10 @@ PUBLIC void fill(const char* CurfileName) {
         }
     }
 
-    printf("Введіть річний оборот за клієнтом: ");
+    printf("Р’РІРµРґС–С‚СЊ СЂС–С‡РЅРёР№ РѕР±РѕСЂРѕС‚ Р·Р° РєР»С–С”РЅС‚РѕРј: ");
     while (1) {
         if (scanf("%f", &new_client->annual_turnove) != 1 || new_client->annual_turnove < 0) {
-            printf("Помилка: недопустимий річний оборот. Введіть річний оборот за клієнтом ще раз: ");
+            printf("РџРѕРјРёР»РєР°: РЅРµРґРѕРїСѓСЃС‚РёРјРёР№ СЂС–С‡РЅРёР№ РѕР±РѕСЂРѕС‚. Р’РІРµРґС–С‚СЊ СЂС–С‡РЅРёР№ РѕР±РѕСЂРѕС‚ Р·Р° РєР»С–С”РЅС‚РѕРј С‰Рµ СЂР°Р·: ");
             while (getchar() != '\n');
         }
         else {
@@ -71,10 +71,10 @@ PUBLIC void fill(const char* CurfileName) {
 
     fclose(f_my);
 }
-PUBLIC void output(const char* CurfileName) {
-    FILE* f_my = fopen(CurfileName, "a+");
+PUBLIC void output(const char* CurС‚ame) {
+    FILE* f_my = fopen(CurС‚ame, "a+");
     if (f_my == NULL) {
-        printf("Помилка відкриття файлу.\n");
+        printf("РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ С„Р°Р№Р»Сѓ.\n");
         return;
     }
 
@@ -84,14 +84,14 @@ PUBLIC void output(const char* CurfileName) {
 
     
     printf("+--------------------------------+--------------------------------+----------+--------------+\n");
-    printf("|           Прізвище та ім’я     |           E-mail               |Рейтинг   |Річний оборот |\n");
+    printf("|           РџСЂС–Р·РІРёС‰Рµ С‚Р° С–РјвЂ™СЏ     |           E-mail               |Р РµР№С‚РёРЅРі   |Р С–С‡РЅРёР№ РѕР±РѕСЂРѕС‚ |\n");
     printf("+--------------------------------+--------------------------------+----------+--------------+\n");
 
     while (fgets(line, sizeof(line), f_my)) {
         struct client_info* new_client = (struct client_info*)malloc(sizeof(struct client_info));
 
         if (new_client == NULL) {
-            printf("Помилка виділення пам'яті.\n");
+            printf("РџРѕРјРёР»РєР° РІРёРґС–Р»РµРЅРЅСЏ РїР°Рј'СЏС‚С–.\n");
             break;
         }
 
@@ -128,29 +128,29 @@ PUBLIC void output(const char* CurfileName) {
 
     fclose(f_my);
 }
-PUBLIC void del(const char* CurfileName) {
-    FILE* f_my = fopen(CurfileName, "r");
+PUBLIC void del(const char* Curname) {
+    FILE* f_my = fopen(Curname, "r");
     if (f_my == NULL) {
-        printf("Помилка відкриття файлу.\n");
+        printf("РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ С„Р°Р№Р»Сѓ.\n");
         return;
     }
 
     
     FILE* f_temp = fopen("temp.txt", "w");
     if (f_temp == NULL) {
-        printf("Помилка відкриття тимчасового файлу.\n");
+        printf("РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ С‚РёРјС‡Р°СЃРѕРІРѕРіРѕ С„Р°Р№Р»Сѓ.\n");
         fclose(f_my);
         return;
     }
 
     char line[200];
     int client_deleted = 0, rat; 
-    printf("Введіть рейтинг клієнта для видалення.\n");
+    printf("Р’РІРµРґС–С‚СЊ СЂРµР№С‚РёРЅРі РєР»С–С”РЅС‚Р° РґР»СЏ РІРёРґР°Р»РµРЅРЅСЏ.\n");
     scanf_s("%d", &rat);
     while (fgets(line, sizeof(line), f_my)) {
         struct client_info* new_client = (struct client_info*)malloc(sizeof(struct client_info));
         if (new_client == NULL) {
-            printf("Помилка виділення пам'яті.\n");
+            printf("РџРѕРјРёР»РєР° РІРёРґС–Р»РµРЅРЅСЏ РїР°Рј'СЏС‚С–.\n");
             break;
         }
 
@@ -192,36 +192,36 @@ PUBLIC void del(const char* CurfileName) {
     fclose(f_temp);
 
     
-    remove(CurfileName);
-    rename("temp.txt", CurfileName);
+    remove(Curname);
+    rename("temp.txt", Curname);
 
     if (client_deleted)
-        printf("Клієнт з рейтингом %d був успішно видалений.\n", rat);
+        printf("РљР»С–С”РЅС‚ Р· СЂРµР№С‚РёРЅРіРѕРј %d Р±СѓРІ СѓСЃРїС–С€РЅРѕ РІРёРґР°Р»РµРЅРёР№.\n", rat);
     else
-        printf("Клієнт з рейтингом %d не знайдений.\n", rat);
+        printf("РљР»С–С”РЅС‚ Р· СЂРµР№С‚РёРЅРіРѕРј %d РЅРµ Р·РЅР°Р№РґРµРЅРёР№.\n", rat);
 
 }
-PUBLIC void edit(const char* CurfileName) {
+PUBLIC void edit(const char* Curname) {
     int col, rat;
     char name2[MAX + 1];
     float annual_turnover;
 
-    printf("Введіть рейтинг клієнта, якого потрібно редагувати: ");
+    printf("Р’РІРµРґС–С‚СЊ СЂРµР№С‚РёРЅРі РєР»С–С”РЅС‚Р°, СЏРєРѕРіРѕ РїРѕС‚СЂС–Р±РЅРѕ СЂРµРґР°РіСѓРІР°С‚Рё: ");
     if (scanf("%d", &rat) != 1) {
-        printf("Помилка: невірний рейтинг.\n");
+        printf("РџРѕРјРёР»РєР°: РЅРµРІС–СЂРЅРёР№ СЂРµР№С‚РёРЅРі.\n");
         return;
     }
     while (getchar() != '\n');
 
-    FILE* f_my = fopen(CurfileName, "r");
+    FILE* f_my = fopen(Curname, "r");
     if (f_my == NULL) {
-        printf("Помилка відкриття файлу.\n");
+        printf("РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ С„Р°Р№Р»Сѓ.\n");
         return;
     }
 
     FILE* f_temp = fopen("temp.txt", "w");
     if (f_temp == NULL) {
-        printf("Помилка відкриття тимчасового файлу.\n");
+        printf("РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ С‚РёРјС‡Р°СЃРѕРІРѕРіРѕ С„Р°Р№Р»Сѓ.\n");
         fclose(f_my);
         return;
     }
@@ -233,7 +233,7 @@ PUBLIC void edit(const char* CurfileName) {
     while (fgets(line, sizeof(line), f_my)) {
         struct client_info* new_client = (struct client_info*)malloc(sizeof(struct client_info));
         if (new_client == NULL) {
-            printf("Помилка виділення пам'яті.\n");
+            printf("РџРѕРјРёР»РєР° РІРёРґС–Р»РµРЅРЅСЏ РїР°Рј'СЏС‚С–.\n");
             break;
         }
 
@@ -261,15 +261,15 @@ PUBLIC void edit(const char* CurfileName) {
 
         if (new_client->rating == rat) {
             found = 1;
-            printf("Клієнт із рейтингом %d:\n", rat);
-            printf("1. Рейтинг: %d\n", new_client->rating);
-            printf("2. Прізвище та ім’я: %s\n", new_client->name);
+            printf("РљР»С–С”РЅС‚ С–Р· СЂРµР№С‚РёРЅРіРѕРј %d:\n", rat);
+            printf("1. Р РµР№С‚РёРЅРі: %d\n", new_client->rating);
+            printf("2. РџСЂС–Р·РІРёС‰Рµ С‚Р° С–РјвЂ™СЏ: %s\n", new_client->name);
             printf("3. E-mail: %s\n", new_client->email);
-            printf("4. Річний оборот: %.2f\n", new_client->annual_turnove);
+            printf("4. Р С–С‡РЅРёР№ РѕР±РѕСЂРѕС‚: %.2f\n", new_client->annual_turnove);
 
-            printf("Введіть номер стовпця, який бажаєте змінити (1-4): ");
+            printf("Р’РІРµРґС–С‚СЊ РЅРѕРјРµСЂ СЃС‚РѕРІРїС†СЏ, СЏРєРёР№ Р±Р°Р¶Р°С”С‚Рµ Р·РјС–РЅРёС‚Рё (1-4): ");
             if (scanf("%d", &col) != 1) {
-                printf("Невірний номер стовпця.\n");
+                printf("РќРµРІС–СЂРЅРёР№ РЅРѕРјРµСЂ СЃС‚РѕРІРїС†СЏ.\n");
                 fclose(f_my);
                 fclose(f_temp);
                 free(new_client); 
@@ -279,9 +279,9 @@ PUBLIC void edit(const char* CurfileName) {
 
             switch (col) {
             case 1:
-                printf("Введіть новий рейтинг: ");
+                printf("Р’РІРµРґС–С‚СЊ РЅРѕРІРёР№ СЂРµР№С‚РёРЅРі: ");
                 if (scanf("%d", &(new_client->rating)) != 1 || new_client->rating < 0) {
-                    printf("Помилка: недопустимий рейтинг.\n");
+                    printf("РџРѕРјРёР»РєР°: РЅРµРґРѕРїСѓСЃС‚РёРјРёР№ СЂРµР№С‚РёРЅРі.\n");
                     fclose(f_my);
                     fclose(f_temp);
                     return;
@@ -289,14 +289,14 @@ PUBLIC void edit(const char* CurfileName) {
                 break;
 
             case 2:
-                printf("Введіть нове прізвище та ім’я клієнта: ");
+                printf("Р’РІРµРґС–С‚СЊ РЅРѕРІРµ РїСЂС–Р·РІРёС‰Рµ С‚Р° С–РјвЂ™СЏ РєР»С–С”РЅС‚Р°: ");
                 fgets(name2, MAX + 1, stdin);
                 name2[strcspn(name2, "\n")] = '\0';
                 strcpy(new_client->name, name2);
                 break;
 
             case 3:
-                printf("Введіть новий e-mail клієнта: ");
+                printf("Р’РІРµРґС–С‚СЊ РЅРѕРІРёР№ e-mail РєР»С–С”РЅС‚Р°: ");
                 fgets(name2, MAX + 1, stdin);
                 name2[strcspn(name2, "\n")] = '\0';
                 strcpy(new_client->email, name2);
@@ -304,16 +304,16 @@ PUBLIC void edit(const char* CurfileName) {
 
 
             case 4:
-                printf("Введіть новий річний оборот за клієнтом: ");
+                printf("Р’РІРµРґС–С‚СЊ РЅРѕРІРёР№ СЂС–С‡РЅРёР№ РѕР±РѕСЂРѕС‚ Р·Р° РєР»С–С”РЅС‚РѕРј: ");
                 while (scanf("%f", &annual_turnover) != 1 || annual_turnover < 0) {
-                    printf("Помилка: недопустимий річний оборот. Введіть ще раз: ");
+                    printf("РџРѕРјРёР»РєР°: РЅРµРґРѕРїСѓСЃС‚РёРјРёР№ СЂС–С‡РЅРёР№ РѕР±РѕСЂРѕС‚. Р’РІРµРґС–С‚СЊ С‰Рµ СЂР°Р·: ");
                     while (getchar() != '\n'); 
                 }
                 new_client->annual_turnove = annual_turnover;
                 break;
 
             default:
-                printf("Невірний номер стовпця.\n");
+                printf("РќРµРІС–СЂРЅРёР№ РЅРѕРјРµСЂ СЃС‚РѕРІРїС†СЏ.\n");
                 fclose(f_my);
                 fclose(f_temp);
                 free(new_client); 
@@ -332,28 +332,28 @@ PUBLIC void edit(const char* CurfileName) {
     fclose(f_my);
     fclose(f_temp);
 
-    remove(CurfileName);
-    rename("temp.txt", CurfileName);
+    remove(Curname);
+    rename("temp.txt", Curname);
 
     if (found)
-        printf("Зміна даних успішно виконана.\n");
+        printf("Р—РјС–РЅР° РґР°РЅРёС… СѓСЃРїС–С€РЅРѕ РІРёРєРѕРЅР°РЅР°.\n");
     else
-        printf("Клієнт з рейтингом %d не знайдений.\n", rat);
+        printf("РљР»С–С”РЅС‚ Р· СЂРµР№С‚РёРЅРіРѕРј %d РЅРµ Р·РЅР°Р№РґРµРЅРёР№.\n", rat);
 }
 
-PUBLIC void rating_search(const char* CurfileName) {
+PUBLIC void rating_search(const char* Curname) {
     int target_rating;
-    printf("Введіть рейтинг для пошуку: ");
+    printf("Р’РІРµРґС–С‚СЊ СЂРµР№С‚РёРЅРі РґР»СЏ РїРѕС€СѓРєСѓ: ");
     scanf_s("%d", &target_rating);
 
-    FILE* f_my = fopen(CurfileName, "a+");
+    FILE* f_my = fopen(Curname, "a+");
     if (f_my == NULL) {
-        printf("Помилка відкриття файлу.\n");
+        printf("РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ С„Р°Р№Р»Сѓ.\n");
         return;
     }
 
     printf("+--------------------------------+--------------------------------+----------+--------------+\n");
-    printf("|           Прізвище та ім’я     |           E-mail               |Рейтинг   |Річний оборот |\n");
+    printf("|           РџСЂС–Р·РІРёС‰Рµ С‚Р° С–РјвЂ™СЏ     |           E-mail               |Р РµР№С‚РёРЅРі   |Р С–С‡РЅРёР№ РѕР±РѕСЂРѕС‚ |\n");
     printf("+--------------------------------+--------------------------------+----------+--------------+\n");
 
     fseek(f_my, 0, SEEK_SET);
@@ -362,7 +362,7 @@ PUBLIC void rating_search(const char* CurfileName) {
     while (fgets(line, sizeof(line), f_my)) {
         struct client_info* new_client = (struct client_info*)malloc(sizeof(struct client_info));
         if (new_client == NULL) {
-            printf("Помилка виділення пам'яті.\n");
+            printf("РџРѕРјРёР»РєР° РІРёРґС–Р»РµРЅРЅСЏ РїР°Рј'СЏС‚С–.\n");
             break;
         }
 
@@ -402,15 +402,15 @@ PUBLIC void rating_search(const char* CurfileName) {
 
     fclose(f_my);
 }
-PUBLIC void annual_turnover(const char* CurfileName) {
+PUBLIC void annual_turnover(const char* Curname) {
     float annual_turnover;
 
-    printf("Введіть оборот для пошуку: ");
+    printf("Р’РІРµРґС–С‚СЊ РѕР±РѕСЂРѕС‚ РґР»СЏ РїРѕС€СѓРєСѓ: ");
     scanf("%f", &annual_turnover);
 
-    FILE* f_my = fopen(CurfileName, "r");
+    FILE* f_my = fopen(Curname, "r");
     if (f_my == NULL) {
-        printf("Помилка відкриття файлу.\n");
+        printf("РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ С„Р°Р№Р»Сѓ.\n");
         return;
     }
 
@@ -423,7 +423,7 @@ PUBLIC void annual_turnover(const char* CurfileName) {
     while (fgets(line, sizeof(line), f_my)) {
         struct client_info* new_client = (struct client_info*)malloc(sizeof(struct client_info));
         if (new_client == NULL) {
-            printf("Помилка виділення пам'яті.\n");
+            printf("РџРѕРјРёР»РєР° РІРёРґС–Р»РµРЅРЅСЏ РїР°Рј'СЏС‚С–.\n");
             break;
         }
 
@@ -473,7 +473,7 @@ PUBLIC void annual_turnover(const char* CurfileName) {
     
     if (first != NULL) {
         printf("+--------------------------------+--------------------------------+----------+--------------+\n");
-        printf("|           Прізвище та ім’я     |           E-mail               |Рейтинг   |Річний оборот |\n");
+        printf("|           РџСЂС–Р·РІРёС‰Рµ С‚Р° С–РјвЂ™СЏ     |           E-mail               |Р РµР№С‚РёРЅРі   |Р С–С‡РЅРёР№ РѕР±РѕСЂРѕС‚ |\n");
         printf("+--------------------------------+--------------------------------+----------+--------------+\n");
 
         
@@ -486,7 +486,7 @@ PUBLIC void annual_turnover(const char* CurfileName) {
         printf("+--------------------------------+--------------------------------+----------+--------------+\n");
     }
     else {
-        printf("Клієнта з оборотом нижче вказаного значення не знайдено.\n");
+        printf("РљР»С–С”РЅС‚Р° Р· РѕР±РѕСЂРѕС‚РѕРј РЅРёР¶С‡Рµ РІРєР°Р·Р°РЅРѕРіРѕ Р·РЅР°С‡РµРЅРЅСЏ РЅРµ Р·РЅР°Р№РґРµРЅРѕ.\n");
     }
 
     
@@ -504,7 +504,7 @@ PUBLIC void generation_key() {
 
     FILE* f_my_key = fopen("funcs.cfg", "a+");
     if (f_my_key == NULL) {
-        printf("Помилка відкриття файлу.\n");
+        printf("РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ С„Р°Р№Р»Сѓ.\n");
         return;
     }  
     srand(time(0));
@@ -518,7 +518,7 @@ PUBLIC void generation_key() {
     }
 
     
-    printf("Згенерований ключ: ");
+    printf("Р—РіРµРЅРµСЂРѕРІР°РЅРёР№ РєР»СЋС‡: ");
     for (int i = 0; i < KEY_LENGTH; i++) {
         printf("%02X", key[i]); 
     }
@@ -530,28 +530,28 @@ PUBLIC void generation_key() {
     fclose(f_my_key);
 }
 PUBLIC bool valid() {
-    // Відкриття файлу для зчитування ключа 
+    // Р’С–РґРєСЂРёС‚С‚СЏ С„Р°Р№Р»Сѓ РґР»СЏ Р·С‡РёС‚СѓРІР°РЅРЅСЏ РєР»СЋС‡Р° 
     FILE* f_my_key = fopen("funcs.cfg", "a+");
     if (f_my_key == NULL) {
-        printf("Помилка відкриття файлу.\n");
+        printf("РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ С„Р°Р№Р»Сѓ.\n");
         return false;
     }
 
-    // Зчитування ключа з файлу
+    // Р—С‡РёС‚СѓРІР°РЅРЅСЏ РєР»СЋС‡Р° Р· С„Р°Р№Р»Сѓ
     char stored_key[KEY_LENGTH + 1];
     fgets(stored_key, sizeof(stored_key), f_my_key);
 
-    // Видалення символу нового рядка, який може бути прочитаний з файлу
+    // Р’РёРґР°Р»РµРЅРЅСЏ СЃРёРјРІРѕР»Сѓ РЅРѕРІРѕРіРѕ СЂСЏРґРєР°, СЏРєРёР№ РјРѕР¶Рµ Р±СѓС‚Рё РїСЂРѕС‡РёС‚Р°РЅРёР№ Р· С„Р°Р№Р»Сѓ
     stored_key[strcspn(stored_key, "\n")] = '\0';
 
-    // Закриття файлу
+    // Р—Р°РєСЂРёС‚С‚СЏ С„Р°Р№Р»Сѓ
     fclose(f_my_key);
 
-    // Перевірка довжини ключа
+    // РџРµСЂРµРІС–СЂРєР° РґРѕРІР¶РёРЅРё РєР»СЋС‡Р°
     if (strlen(stored_key) != KEY_LENGTH)
         return false;
 
-    // Перевірка допустимих символів
+    // РџРµСЂРµРІС–СЂРєР° РґРѕРїСѓСЃС‚РёРјРёС… СЃРёРјРІРѕР»С–РІ
     char sixteen_num[16] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
     for (int i = 0; i < KEY_LENGTH; i++) {
         bool valid_char = false;
@@ -568,30 +568,30 @@ PUBLIC bool valid() {
     return true;
 }
 
-PUBLIC void file_change_name(const char* CurfileName) {
+PUBLIC void file_change_name(const char* Curname) {
     char NewNameFile[MAX_FILENAME_LENGTH + 1];
 
     struct client_info* new_client = (struct client_info*)malloc(sizeof(struct client_info));
     if (new_client == NULL) {
-        printf("Помилка виділення пам'яті.\n");
+        printf("РџРѕРјРёР»РєР° РІРёРґС–Р»РµРЅРЅСЏ РїР°Рј'СЏС‚С–.\n");
         return;
     }
 
     while (getchar() != '\n');
-    printf("Введіть нову назву файла: ");
+    printf("Р’РІРµРґС–С‚СЊ РЅРѕРІСѓ РЅР°Р·РІСѓ С„Р°Р№Р»Р°: ");
     fgets(NewNameFile, MAX_FILENAME_LENGTH + 1, stdin);
     NewNameFile[strcspn(NewNameFile, "\n")] = '\0';
 
-    FILE* f_my = fopen(CurfileName, "r");
+    FILE* f_my = fopen(Curname, "r");
     if (f_my == NULL) {
-        printf("Помилка відкриття файлу.\n");
+        printf("РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ С„Р°Р№Р»Сѓ.\n");
         free(new_client);
         return;
     }
 
     FILE* f_temp = fopen(NewNameFile, "w");
     if (f_temp == NULL) {
-        printf("Помилка відкриття тимчасового файлу.\n");
+        printf("РџРѕРјРёР»РєР° РІС–РґРєСЂРёС‚С‚СЏ С‚РёРјС‡Р°СЃРѕРІРѕРіРѕ С„Р°Р№Р»Сѓ.\n");
         free(new_client);
         fclose(f_my);
         return;
@@ -628,28 +628,28 @@ PUBLIC void file_change_name(const char* CurfileName) {
     fclose(f_my);
     fclose(f_temp);
 
-    remove(CurfileName);
+    remove(Curname);
 }
 
-PUBLIC void CSV(const char* CurfileName) {
+PUBLIC void CSV(const char* Curname) {
     struct client_info* new_client;
     char csv[MAX_FILENAME_LENGTH + 1];
-    printf("Введіть назву CSV файла: Приклад 'data.csv' - ");
+    printf("Р’РІРµРґС–С‚СЊ РЅР°Р·РІСѓ CSV С„Р°Р№Р»Р°: РџСЂРёРєР»Р°Рґ 'data.csv' - ");
 
     while (getchar() != '\n');
 
     fgets(csv, MAX_FILENAME_LENGTH, stdin);
     csv[strcspn(csv, "\n")] = '\0';
 
-    FILE* f_my = fopen(CurfileName, "r");
+    FILE* f_my = fopen(Curname, "r");
     if (f_my == NULL) {
-        printf("Не вдалося відкрити файл для зчитування.\n");
+        printf("РќРµ РІРґР°Р»РѕСЃСЏ РІС–РґРєСЂРёС‚Рё С„Р°Р№Р» РґР»СЏ Р·С‡РёС‚СѓРІР°РЅРЅСЏ.\n");
         return;
     }
 
     FILE* file = fopen(csv, "w");
     if (file == NULL) {
-        printf("Не вдалося відкрити файл для запису csv.\n");
+        printf("РќРµ РІРґР°Р»РѕСЃСЏ РІС–РґРєСЂРёС‚Рё С„Р°Р№Р» РґР»СЏ Р·Р°РїРёСЃСѓ csv.\n");
         fclose(f_my);
         return;
     }
@@ -658,7 +658,7 @@ PUBLIC void CSV(const char* CurfileName) {
     while (fgets(line, sizeof(line), f_my)) {
         new_client = (struct client_info*)malloc(sizeof(struct client_info));
         if (new_client == NULL) {
-            printf("Помилка виділення пам'яті.\n");
+            printf("РџРѕРјРёР»РєР° РІРёРґС–Р»РµРЅРЅСЏ РїР°Рј'СЏС‚С–.\n");
             fclose(file);
             fclose(f_my);
             return;
@@ -695,5 +695,5 @@ PUBLIC void CSV(const char* CurfileName) {
     fclose(file);
     fclose(f_my);
 
-    printf("Дані успішно експортовано у файл з розширенням csv - %s\n", csv);
+    printf("Р”Р°РЅС– СѓСЃРїС–С€РЅРѕ РµРєСЃРїРѕСЂС‚РѕРІР°РЅРѕ Сѓ С„Р°Р№Р» Р· СЂРѕР·С€РёСЂРµРЅРЅСЏРј csv - %s\n", csv);
 }
