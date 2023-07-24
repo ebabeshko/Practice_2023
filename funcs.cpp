@@ -9,7 +9,6 @@ struct client_info {
 
 struct client_info* first = NULL;
 
-int code_num = 0;
 
 PUBLIC void fill(const char* Curname) {
     struct client_info* new_client = (struct client_info*)malloc(sizeof(struct client_info));
@@ -21,13 +20,6 @@ PUBLIC void fill(const char* Curname) {
     FILE* f_my = fopen(Curname, "a");
     if (f_my == NULL) {
         printf("Помилка відкриття файлу.\n");
-        free(new_client);
-        return;
-    }
-
-    if (code_num == MAX) {
-        printf("База заповнена, додавання неможливе.\n");
-        fclose(f_my);
         free(new_client);
         return;
     }
@@ -71,8 +63,9 @@ PUBLIC void fill(const char* Curname) {
 
     fclose(f_my);
 }
-PUBLIC void output(const char* Curтame) {
-    FILE* f_my = fopen(Curтame, "a+");
+
+PUBLIC void output(const char* Curname) {
+    FILE* f_my = fopen(Curname, "a+");
     if (f_my == NULL) {
         printf("Помилка відкриття файлу.\n");
         return;
@@ -201,9 +194,9 @@ PUBLIC void del(const char* Curname) {
         printf("Клієнт з рейтингом %d не знайдений.\n", rat);
 
 }
-PUBLIC void edit(const char* Curname) {
+PUBLIC void edit(const char* Curname)  {
     int col, rat;
-    char name2[MAX + 1];
+    char name[MAX + 1];
     float annual_turnover;
 
     printf("Введіть рейтинг клієнта, якого потрібно редагувати: ");
@@ -290,16 +283,16 @@ PUBLIC void edit(const char* Curname) {
 
             case 2:
                 printf("Введіть нове прізвище та ім’я клієнта: ");
-                fgets(name2, MAX + 1, stdin);
-                name2[strcspn(name2, "\n")] = '\0';
-                strcpy(new_client->name, name2);
+                fgets(name, MAX + 1, stdin);
+                name[strcspn(name, "\n")] = '\0';
+                strcpy(new_client->name, name);
                 break;
 
             case 3:
                 printf("Введіть новий e-mail клієнта: ");
-                fgets(name2, MAX + 1, stdin);
-                name2[strcspn(name2, "\n")] = '\0';
-                strcpy(new_client->email, name2);
+                fgets(name, MAX + 1, stdin);
+                name[strcspn(name, "\n")] = '\0';
+                strcpy(new_client->email, name);
                 break;
 
 
@@ -330,7 +323,7 @@ PUBLIC void edit(const char* Curname) {
     }
 
     fclose(f_my);
-    fclose(f_temp);
+    fclose(f_temp); 
 
     remove(Curname);
     rename("temp.txt", Curname);
@@ -500,58 +493,51 @@ PUBLIC void annual_turnover(const char* Curname) {
 
 
 PUBLIC void generation_key() {
-  
+    char key[KEY_LENGTH + 1];
+    char sixteen_num[16] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+    srand(time(0));
+    int randomNumber;
 
     FILE* f_my_key = fopen("funcs.cfg", "a+");
     if (f_my_key == NULL) {
         printf("Помилка відкриття файлу.\n");
         return;
-    }  
-    srand(time(0));
-
-    
-    unsigned char key[KEY_LENGTH+1];
-
-   
-    for (int i = 0; i < KEY_LENGTH; i++) {
-        key[i] = rand() % 256; 
     }
 
-    
-    printf("Згенерований ключ: ");
     for (int i = 0; i < KEY_LENGTH; i++) {
-        printf("%02X", key[i]); 
+        randomNumber = rand() % 16;
+        key[i] = sixteen_num[randomNumber];
     }
-    printf("\n");
+    key[KEY_LENGTH] = '\0';
 
     fprintf(f_my_key, "DB = mybd.dat\n");
-    fprintf(f_my_key, "KEY = %02X\n", key);
+    fprintf(f_my_key, "KEY = %s\n", key);
 
     fclose(f_my_key);
 }
 PUBLIC bool valid() {
-    // Відкриття файлу для зчитування ключа 
+    
     FILE* f_my_key = fopen("funcs.cfg", "a+");
     if (f_my_key == NULL) {
         printf("Помилка відкриття файлу.\n");
         return false;
     }
 
-    // Зчитування ключа з файлу
+  
     char stored_key[KEY_LENGTH + 1];
     fgets(stored_key, sizeof(stored_key), f_my_key);
 
-    // Видалення символу нового рядка, який може бути прочитаний з файлу
+    
     stored_key[strcspn(stored_key, "\n")] = '\0';
 
-    // Закриття файлу
+
     fclose(f_my_key);
 
-    // Перевірка довжини ключа
+  
     if (strlen(stored_key) != KEY_LENGTH)
         return false;
 
-    // Перевірка допустимих символів
+    
     char sixteen_num[16] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
     for (int i = 0; i < KEY_LENGTH; i++) {
         bool valid_char = false;
@@ -632,7 +618,7 @@ PUBLIC void file_change_name(const char* Curname) {
 }
 
 PUBLIC void CSV(const char* Curname) {
-    struct client_info* new_client;
+    
     char csv[MAX_FILENAME_LENGTH + 1];
     printf("Введіть назву CSV файла: Приклад 'data.csv' - ");
 
@@ -656,7 +642,7 @@ PUBLIC void CSV(const char* Curname) {
 
     char line[200];
     while (fgets(line, sizeof(line), f_my)) {
-        new_client = (struct client_info*)malloc(sizeof(struct client_info));
+        struct client_info* new_client = (struct client_info*)malloc(sizeof(struct client_info));
         if (new_client == NULL) {
             printf("Помилка виділення пам'яті.\n");
             fclose(file);
@@ -697,3 +683,4 @@ PUBLIC void CSV(const char* Curname) {
 
     printf("Дані успішно експортовано у файл з розширенням csv - %s\n", csv);
 }
+
