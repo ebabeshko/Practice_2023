@@ -1,4 +1,4 @@
-﻿/**
+/**
 * @file Practice2023.cpp
 * @author Попов В. О., гр. 515-а, варіант 24
 * @date 9 липня 2023
@@ -70,8 +70,8 @@ mark:
                     goto mark;
                     break;
                 case 3:
-                    goto mark;
                     del(curname);
+                    goto mark;
                     break;
                 case 4:
                     edit(curname);
@@ -171,3 +171,4 @@ mark:
     }
     return 0;
 }
+
